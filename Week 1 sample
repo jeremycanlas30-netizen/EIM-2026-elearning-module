@@ -1,0 +1,2981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EIM-2026 | Week 1 — Electrical System Installation and Wiring Works</title>
+<style>
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: #f0f4f8;
+  color: #1a2332;
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ============================================================
+   CSS VARIABLES
+   ============================================================ */
+:root {
+  --navy: #0b2545;
+  --navy-mid: #1a3a5c;
+  --blue: #1565c0;
+  --blue-light: #1976d2;
+  --blue-pale: #e3f0fc;
+  --gold: #f5a623;
+  --gold-dark: #d4860d;
+  --gold-pale: #fff8e1;
+  --white: #ffffff;
+  --gray-50: #f8fafc;
+  --gray-100: #f0f4f8;
+  --gray-200: #e2e8f0;
+  --gray-300: #cbd5e1;
+  --gray-400: #94a3b8;
+  --gray-500: #64748b;
+  --gray-600: #475569;
+  --gray-700: #334155;
+  --gray-800: #1e293b;
+  --green: #16a34a;
+  --green-pale: #dcfce7;
+  --red: #dc2626;
+  --red-pale: #fee2e2;
+  --sidebar-width: 280px;
+  --header-height: 80px;
+  --radius: 10px;
+  --shadow: 0 2px 12px rgba(11,37,69,0.10);
+  --shadow-lg: 0 8px 32px rgba(11,37,69,0.15);
+  --transition: 0.22s ease;
+}
+
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+::-webkit-scrollbar { width: 7px; height: 7px; }
+::-webkit-scrollbar-track { background: var(--gray-100); }
+::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--blue); }
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+.site-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--header-height);
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 60%, #1a5276 100%);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  z-index: 200;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.25);
+}
+.header-brand {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.header-brand .course-tag {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 2px;
+}
+.header-brand .course-title {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  color: var(--white);
+  line-height: 1.2;
+}
+.header-brand .course-sub {
+  font-size: 12px;
+  color: rgba(255,255,255,0.72);
+  margin-top: 2px;
+}
+.header-badge {
+  background: rgba(245,166,35,0.18);
+  border: 1.5px solid var(--gold);
+  border-radius: 20px;
+  padding: 5px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gold);
+  white-space: nowrap;
+  margin-left: 16px;
+}
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-right: 14px;
+  padding: 6px;
+  color: var(--white);
+  flex-shrink: 0;
+}
+.hamburger svg { display: block; }
+
+/* ============================================================
+   LAYOUT SHELL
+   ============================================================ */
+.app-shell {
+  display: flex;
+  margin-top: var(--header-height);
+  min-height: calc(100vh - var(--header-height));
+}
+
+/* ============================================================
+   SIDEBAR
+   ============================================================ */
+.sidebar {
+  width: var(--sidebar-width);
+  background: var(--navy);
+  color: var(--white);
+  position: fixed;
+  top: var(--header-height);
+  left: 0;
+  bottom: 0;
+  overflow-y: auto;
+  z-index: 100;
+  transition: transform var(--transition);
+  display: flex;
+  flex-direction: column;
+}
+.sidebar-header {
+  padding: 20px 20px 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.10);
+  flex-shrink: 0;
+}
+.sidebar-header h2 {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+.sidebar-header p {
+  font-size: 12px;
+  color: rgba(255,255,255,0.60);
+  line-height: 1.4;
+}
+.sidebar-nav {
+  padding: 10px 0 20px;
+  flex: 1;
+}
+.nav-overview {
+  display: block;
+  padding: 10px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.85);
+  text-decoration: none;
+  border-left: 3px solid transparent;
+  transition: all var(--transition);
+  cursor: pointer;
+}
+.nav-overview:hover, .nav-overview.active {
+  background: rgba(255,255,255,0.08);
+  border-left-color: var(--gold);
+  color: var(--white);
+}
+.nav-section {
+  margin-top: 6px;
+}
+.nav-section-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 20px;
+  background: none;
+  border: none;
+  border-left: 3px solid transparent;
+  color: rgba(255,255,255,0.90);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+  transition: all var(--transition);
+}
+.nav-section-btn:hover {
+  background: rgba(255,255,255,0.08);
+  border-left-color: var(--gold);
+  color: var(--white);
+}
+.nav-section-btn.active {
+  background: rgba(245,166,35,0.15);
+  border-left-color: var(--gold);
+  color: var(--gold);
+}
+.nav-section-btn .session-num {
+  background: var(--blue);
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8px;
+  flex-shrink: 0;
+  transition: background var(--transition);
+}
+.nav-section-btn.active .session-num, .nav-section-btn:hover .session-num {
+  background: var(--gold-dark);
+}
+.nav-section-btn .chevron {
+  transition: transform var(--transition);
+  opacity: 0.6;
+  flex-shrink: 0;
+}
+.nav-section-btn.expanded .chevron { transform: rotate(90deg); }
+.nav-sub {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.32s ease;
+}
+.nav-sub.open { max-height: 200px; }
+.nav-sub a {
+  display: block;
+  padding: 7px 20px 7px 46px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.65);
+  text-decoration: none;
+  transition: all var(--transition);
+  cursor: pointer;
+}
+.nav-sub a:hover, .nav-sub a.active {
+  color: var(--gold);
+  background: rgba(255,255,255,0.06);
+}
+.nav-sub a::before {
+  content: '—';
+  margin-right: 6px;
+  opacity: 0.4;
+  font-size: 10px;
+}
+.sidebar-progress {
+  padding: 16px 20px;
+  border-top: 1px solid rgba(255,255,255,0.10);
+  flex-shrink: 0;
+}
+.sidebar-progress p {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: rgba(255,255,255,0.50);
+  margin-bottom: 8px;
+}
+.progress-bar-wrap {
+  background: rgba(255,255,255,0.12);
+  border-radius: 6px;
+  height: 6px;
+  overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--gold), #ffcc02);
+  border-radius: 6px;
+  transition: width 0.6s ease;
+}
+.progress-label {
+  font-size: 12px;
+  color: var(--gold);
+  margin-top: 5px;
+  font-weight: 600;
+}
+
+/* ============================================================
+   MAIN CONTENT
+   ============================================================ */
+.main-content {
+  margin-left: var(--sidebar-width);
+  flex: 1;
+  padding: 32px 28px 60px;
+  max-width: 900px;
+}
+
+/* ============================================================
+   PROGRESS TRACKER
+   ============================================================ */
+.progress-tracker {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 16px 22px;
+  margin-bottom: 28px;
+  box-shadow: var(--shadow);
+  flex-wrap: wrap;
+}
+.progress-tracker h3 {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--gray-500);
+  margin-right: 4px;
+  flex-shrink: 0;
+}
+.progress-step {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: var(--gray-100);
+  border: 2px solid var(--gray-200);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gray-500);
+  transition: all var(--transition);
+}
+.progress-step.visited {
+  background: var(--blue-pale);
+  border-color: var(--blue-light);
+  color: var(--blue);
+}
+.progress-step.completed {
+  background: var(--green-pale);
+  border-color: var(--green);
+  color: var(--green);
+}
+.progress-step .step-icon {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--gray-300);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  transition: background var(--transition);
+}
+.progress-step.visited .step-icon { background: var(--blue-light); color: var(--white); }
+.progress-step.completed .step-icon { background: var(--green); color: var(--white); }
+
+/* ============================================================
+   CARDS / SECTIONS
+   ============================================================ */
+.card {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 24px;
+  overflow: hidden;
+  transition: box-shadow var(--transition);
+}
+.card:hover { box-shadow: var(--shadow-lg); }
+
+/* ============================================================
+   WELCOME SECTION
+   ============================================================ */
+.welcome-hero {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 50%, #1a5276 100%);
+  color: var(--white);
+  border-radius: var(--radius);
+  padding: 36px 32px;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+.welcome-hero::before {
+  content: '';
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 220px; height: 220px;
+  background: rgba(245,166,35,0.10);
+  border-radius: 50%;
+}
+.welcome-hero::after {
+  content: '';
+  position: absolute;
+  bottom: -60px; left: -20px;
+  width: 160px; height: 160px;
+  background: rgba(21,101,192,0.20);
+  border-radius: 50%;
+}
+.welcome-hero .week-badge {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(245,166,35,0.20);
+  border: 1.5px solid var(--gold);
+  border-radius: 20px;
+  padding: 4px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 14px;
+  position: relative;
+  z-index: 1;
+}
+.welcome-hero h1 {
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.25;
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 1;
+}
+.welcome-hero p {
+  font-size: 15px;
+  color: rgba(255,255,255,0.82);
+  max-width: 560px;
+  position: relative;
+  z-index: 1;
+  line-height: 1.65;
+}
+.welcome-meta {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  position: relative;
+  z-index: 1;
+}
+.meta-chip {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.22);
+  border-radius: 6px;
+  padding: 5px 12px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.88);
+  font-weight: 500;
+}
+
+/* ============================================================
+   SECTION HEADERS
+   ============================================================ */
+.section-header {
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid var(--gray-100);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.section-num {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--blue);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+.section-header h2 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--navy);
+  flex: 1;
+}
+.section-header .session-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--gray-400);
+  display: block;
+  margin-bottom: 2px;
+}
+
+/* ============================================================
+   SESSION ACCORDION
+   ============================================================ */
+.session-accordion {
+  border: 2px solid var(--gray-200);
+  border-radius: var(--radius);
+  margin-bottom: 20px;
+  overflow: hidden;
+  transition: border-color var(--transition);
+}
+.session-accordion:hover { border-color: var(--blue); }
+.session-accordion.active { border-color: var(--blue); }
+.session-accordion-btn {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 18px 22px;
+  background: var(--white);
+  border: none;
+  cursor: pointer;
+  gap: 14px;
+  transition: background var(--transition);
+}
+.session-accordion-btn:hover { background: var(--blue-pale); }
+.session-accordion.active .session-accordion-btn { background: var(--blue-pale); }
+.session-accordion-btn .acc-num {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--blue);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+.session-accordion-btn .acc-text {
+  flex: 1;
+  text-align: left;
+}
+.session-accordion-btn .acc-text .acc-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--gray-400);
+  margin-bottom: 2px;
+}
+.session-accordion-btn .acc-text h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--navy);
+}
+.session-accordion-btn .acc-status {
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+.acc-status.not-started { background: var(--gray-100); color: var(--gray-400); }
+.acc-status.in-progress { background: var(--blue-pale); color: var(--blue); }
+.acc-status.completed { background: var(--green-pale); color: var(--green); }
+.acc-chevron {
+  transition: transform 0.3s ease;
+  color: var(--gray-400);
+  flex-shrink: 0;
+}
+.session-accordion.open .acc-chevron { transform: rotate(180deg); }
+.session-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+}
+.session-body.open { max-height: 9999px; }
+.session-body-inner { padding: 0 22px 22px; }
+
+/* ============================================================
+   TABS
+   ============================================================ */
+.tab-bar {
+  display: flex;
+  gap: 2px;
+  background: var(--gray-100);
+  border-radius: 8px;
+  padding: 4px;
+  margin: 16px 0;
+  flex-wrap: wrap;
+}
+.tab-btn {
+  flex: 1;
+  min-width: 80px;
+  padding: 8px 14px;
+  background: none;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gray-500);
+  cursor: pointer;
+  transition: all var(--transition);
+  white-space: nowrap;
+}
+.tab-btn:hover { background: rgba(255,255,255,0.7); color: var(--blue); }
+.tab-btn.active {
+  background: var(--white);
+  color: var(--blue);
+  box-shadow: 0 1px 6px rgba(0,0,0,0.10);
+}
+.tab-panel { display: none; }
+.tab-panel.active { display: block; animation: fadeIn 0.25s ease; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ============================================================
+   CONTENT STYLES
+   ============================================================ */
+.objectives-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.objectives-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--gray-100);
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--gray-700);
+}
+.objectives-list li:last-child { border-bottom: none; }
+.objectives-list li::before {
+  content: counter(obj-counter);
+  counter-increment: obj-counter;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--blue);
+  color: var(--white);
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.objectives-list { counter-reset: obj-counter; }
+
+.topic-block {
+  margin-bottom: 22px;
+}
+.topic-block h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--blue-pale);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.topic-block h4::before {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 18px;
+  background: var(--blue);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.topic-block p, .topic-block ul, .topic-block ol {
+  font-size: 14px;
+  color: var(--gray-700);
+  line-height: 1.65;
+}
+.topic-block ul, .topic-block ol {
+  padding-left: 20px;
+  margin-top: 4px;
+}
+.topic-block li { margin-bottom: 4px; }
+
+.info-box {
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin: 14px 0;
+  font-size: 13.5px;
+  line-height: 1.6;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.info-box.blue { background: var(--blue-pale); border-left: 4px solid var(--blue); color: var(--navy); }
+.info-box.gold { background: var(--gold-pale); border-left: 4px solid var(--gold); color: #7a4b00; }
+.info-box.green { background: var(--green-pale); border-left: 4px solid var(--green); color: #14532d; }
+.info-box .ib-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+/* ============================================================
+   TABLES
+   ============================================================ */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  margin: 12px 0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+}
+.data-table th {
+  background: var(--navy);
+  color: var(--white);
+  padding: 11px 14px;
+  text-align: left;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.4px;
+}
+.data-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--gray-200);
+  color: var(--gray-700);
+  vertical-align: top;
+  line-height: 1.5;
+}
+.data-table tr:nth-child(even) td { background: var(--gray-50); }
+.data-table tr:last-child td { border-bottom: none; }
+.data-table td strong { color: var(--navy); }
+
+/* ============================================================
+   ACTIVITY SECTION
+   ============================================================ */
+.activity-box {
+  background: var(--gold-pale);
+  border: 2px solid var(--gold);
+  border-radius: 10px;
+  padding: 20px 22px;
+  margin-top: 6px;
+}
+.activity-box .activity-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 12px;
+}
+.activity-box .activity-badge {
+  background: var(--gold);
+  color: var(--white);
+  padding: 2px 9px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.activity-box p, .activity-box ul, .activity-box ol {
+  font-size: 14px;
+  color: var(--gray-700);
+  line-height: 1.65;
+}
+.activity-box ul, .activity-box ol { padding-left: 20px; margin-top: 6px; }
+.activity-box li { margin-bottom: 5px; }
+
+/* ============================================================
+   QUIZ
+   ============================================================ */
+.quiz-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.quiz-header h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--navy);
+}
+.quiz-score-display {
+  background: var(--blue-pale);
+  border: 2px solid var(--blue);
+  border-radius: 20px;
+  padding: 5px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--blue);
+}
+.quiz-question {
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin-bottom: 16px;
+  transition: border-color var(--transition);
+}
+.quiz-question.answered { border-color: var(--gray-300); }
+.quiz-q-num {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--blue);
+  margin-bottom: 7px;
+}
+.quiz-q-text {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--gray-800);
+  margin-bottom: 14px;
+  line-height: 1.5;
+}
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.quiz-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 14px;
+  border: 2px solid var(--gray-200);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all var(--transition);
+  background: var(--white);
+}
+.quiz-option:hover:not(.disabled) { border-color: var(--blue); background: var(--blue-pale); }
+.quiz-option.selected { border-color: var(--blue); background: var(--blue-pale); }
+.quiz-option.correct { border-color: var(--green); background: var(--green-pale); }
+.quiz-option.incorrect { border-color: var(--red); background: var(--red-pale); }
+.quiz-option.disabled { cursor: default; pointer-events: none; }
+.quiz-option .opt-radio {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid var(--gray-300);
+  flex-shrink: 0;
+  margin-top: 1px;
+  transition: all var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.quiz-option.selected .opt-radio { border-color: var(--blue); background: var(--blue); }
+.quiz-option.correct .opt-radio { border-color: var(--green); background: var(--green); }
+.quiz-option.incorrect .opt-radio { border-color: var(--red); background: var(--red); }
+.quiz-option .opt-radio::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--white);
+  display: none;
+}
+.quiz-option.selected .opt-radio::after,
+.quiz-option.correct .opt-radio::after,
+.quiz-option.incorrect .opt-radio::after { display: block; }
+.quiz-option .opt-text { font-size: 13.5px; color: var(--gray-700); line-height: 1.5; }
+.quiz-feedback {
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  margin-top: 6px;
+  display: none;
+  animation: fadeIn 0.2s ease;
+  line-height: 1.55;
+}
+.quiz-feedback.show { display: block; }
+.quiz-feedback.correct { background: var(--green-pale); color: #14532d; border: 1px solid var(--green); }
+.quiz-feedback.incorrect { background: var(--red-pale); color: #7f1d1d; border: 1px solid var(--red); }
+.quiz-check-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 20px;
+  background: var(--blue);
+  color: var(--white);
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.quiz-check-btn:hover:not(:disabled) { background: var(--navy); transform: translateY(-1px); }
+.quiz-check-btn:disabled { background: var(--gray-300); cursor: default; transform: none; }
+.quiz-results {
+  text-align: center;
+  padding: 22px 20px;
+  background: var(--blue-pale);
+  border: 2px solid var(--blue);
+  border-radius: 10px;
+  margin-top: 10px;
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+.quiz-results.show { display: block; }
+.quiz-results .score-big {
+  font-size: 44px;
+  font-weight: 800;
+  color: var(--blue);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.quiz-results p { font-size: 14px; color: var(--gray-600); }
+.quiz-results .retake-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 22px;
+  margin-top: 14px;
+  background: var(--navy);
+  color: var(--white);
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--transition);
+}
+.quiz-results .retake-btn:hover { background: var(--blue); }
+
+/* ============================================================
+   MARK COMPLETE BUTTON
+   ============================================================ */
+.mark-complete-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  margin-top: 20px;
+  background: var(--white);
+  border: 2px solid var(--green);
+  color: var(--green);
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.mark-complete-btn:hover:not(.done) { background: var(--green); color: var(--white); }
+.mark-complete-btn.done { background: var(--green); color: var(--white); cursor: default; }
+
+/* ============================================================
+   WEEK AT-A-GLANCE TABLE
+   ============================================================ */
+.overview-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+.overview-card-header {
+  background: var(--navy);
+  color: var(--white);
+  padding: 16px 22px;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.overview-card-header span { font-size: 18px; }
+.overview-card-body { padding: 20px 22px; }
+.overview-card-body p {
+  font-size: 14px;
+  color: var(--gray-600);
+  line-height: 1.65;
+  margin-bottom: 16px;
+}
+.nav-instructions {
+  background: var(--blue-pale);
+  border-radius: 8px;
+  padding: 14px 16px;
+  font-size: 13px;
+  color: var(--navy);
+  line-height: 1.7;
+}
+.nav-instructions strong { color: var(--blue); }
+
+/* ============================================================
+   CONDUIT TABLE
+   ============================================================ */
+.conduit-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 12px 0;
+}
+.conduit-card {
+  background: var(--gray-50);
+  border: 1.5px solid var(--gray-200);
+  border-radius: 8px;
+  padding: 14px;
+}
+.conduit-card h5 {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--blue);
+}
+.conduit-card ul { font-size: 13px; color: var(--gray-600); padding-left: 16px; }
+.conduit-card li { margin-bottom: 4px; }
+
+/* ============================================================
+   WIRING DIAGRAM
+   ============================================================ */
+.wiring-visual {
+  background: var(--gray-800);
+  border-radius: 10px;
+  padding: 22px;
+  margin: 14px 0;
+  font-family: monospace;
+}
+.wire-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 5px 0;
+  font-size: 12.5px;
+}
+.wire-swatch {
+  width: 32px;
+  height: 12px;
+  border-radius: 3px;
+  flex-shrink: 0;
+  box-shadow: 0 0 6px rgba(0,0,0,0.4);
+}
+.wire-label { color: #e2e8f0; font-weight: 600; min-width: 80px; }
+.wire-terminal { color: #94a3b8; font-size: 11px; }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.site-footer {
+  background: var(--navy);
+  color: rgba(255,255,255,0.65);
+  text-align: center;
+  padding: 18px 24px;
+  font-size: 12.5px;
+  margin-top: auto;
+  line-height: 1.6;
+}
+.site-footer strong { color: var(--gold); }
+
+/* ============================================================
+   BADGE CHIPS
+   ============================================================ */
+.chip {
+  display: inline-block;
+  padding: 2px 9px;
+  border-radius: 12px;
+  font-size: 11.5px;
+  font-weight: 700;
+  margin: 2px 2px 2px 0;
+}
+.chip-blue { background: var(--blue-pale); color: var(--blue); border: 1px solid var(--blue); }
+.chip-gold { background: var(--gold-pale); color: var(--gold-dark); border: 1px solid var(--gold); }
+.chip-green { background: var(--green-pale); color: var(--green); border: 1px solid var(--green); }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+  }
+  .sidebar.open {
+    transform: translateX(0);
+  }
+  .main-content {
+    margin-left: 0;
+    padding: 20px 16px 50px;
+  }
+  .hamburger { display: flex; }
+  .conduit-compare { grid-template-columns: 1fr; }
+  .welcome-hero h1 { font-size: 20px; }
+  .header-badge { display: none; }
+  .progress-tracker { padding: 12px 16px; }
+}
+
+/* ============================================================
+   OVERLAY (mobile sidebar)
+   ============================================================ */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 99;
+}
+.sidebar-overlay.show { display: block; }
+
+/* ============================================================
+   PRINT
+   ============================================================ */
+@media print {
+  .site-header, .sidebar, .sidebar-overlay, .tab-bar,
+  .mark-complete-btn, .quiz-check-btn, .quiz-results .retake-btn,
+  .hamburger, .progress-tracker { display: none !important; }
+  .main-content { margin-left: 0 !important; padding: 0 !important; }
+  .session-body { max-height: none !important; display: block !important; }
+  .tab-panel { display: block !important; }
+  .card, .overview-card, .session-accordion {
+    box-shadow: none !important;
+    border: 1px solid #ccc !important;
+    margin-bottom: 12px !important;
+    break-inside: avoid;
+  }
+  body { background: white !important; color: black !important; font-size: 12pt; }
+  .welcome-hero { background: var(--navy) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .data-table th { background: var(--navy) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  a { text-decoration: none; color: inherit; }
+  .site-footer { background: none; color: #555; border-top: 1px solid #ccc; }
+  h1, h2, h3, h4 { break-after: avoid; }
+  .session-body-inner { padding: 10px 0 !important; }
+}
+
+/* ============================================================
+   UTILITY
+   ============================================================ */
+.mt-0 { margin-top: 0 !important; }
+.mb-0 { margin-bottom: 0 !important; }
+.text-muted { color: var(--gray-500); font-size: 13px; }
+.divider { border: none; border-top: 1px solid var(--gray-200); margin: 18px 0; }
+</style>
+</head>
+<body>
+
+<!-- SITE HEADER -->
+<header class="site-header">
+  <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+      <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+    </svg>
+  </button>
+  <div class="header-brand">
+    <span class="course-tag">TechPro: IA &mdash; Grade 11 / Grade 12</span>
+    <span class="course-title">EIM-2026: Electrical Installation and Maintenance</span>
+    <span class="course-sub">Week 1 &mdash; Electrical System Installation and Wiring Works</span>
+  </div>
+  <div class="header-badge">EIM-2026</div>
+</header>
+
+<!-- SIDEBAR OVERLAY (mobile) -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<!-- APP SHELL -->
+<div class="app-shell">
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2>Week 1</h2>
+      <p>Electrical System Installation and Wiring Works</p>
+    </div>
+    <div class="sidebar-nav">
+      <a class="nav-overview active" id="nav-overview" onclick="scrollToSection('overview')">
+        &#8962; Overview &amp; Welcome
+      </a>
+
+      <!-- Session 1 -->
+      <div class="nav-section">
+        <button class="nav-section-btn" id="navBtn1" onclick="toggleNavSection(1)">
+          <span class="session-num">1</span>
+          Roughing-In &amp; Planning
+          <svg class="chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <div class="nav-sub" id="navSub1">
+          <a onclick="openSession(1, 'objectives')">Learning Objectives</a>
+          <a onclick="openSession(1, 'topics')">Topics</a>
+          <a onclick="openSession(1, 'activity')">Activity</a>
+          <a onclick="openSession(1, 'quiz')">Formative Quiz</a>
+        </div>
+      </div>
+
+      <!-- Session 2 -->
+      <div class="nav-section">
+        <button class="nav-section-btn" id="navBtn2" onclick="toggleNavSection(2)">
+          <span class="session-num">2</span>
+          Wiring &amp; Termination
+          <svg class="chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <div class="nav-sub" id="navSub2">
+          <a onclick="openSession(2, 'objectives')">Learning Objectives</a>
+          <a onclick="openSession(2, 'topics')">Topics</a>
+          <a onclick="openSession(2, 'activity')">Activity</a>
+          <a onclick="openSession(2, 'quiz')">Formative Quiz</a>
+        </div>
+      </div>
+
+      <!-- Session 3 -->
+      <div class="nav-section">
+        <button class="nav-section-btn" id="navBtn3" onclick="toggleNavSection(3)">
+          <span class="session-num">3</span>
+          FDAS &amp; CCTV
+          <svg class="chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <div class="nav-sub" id="navSub3">
+          <a onclick="openSession(3, 'objectives')">Learning Objectives</a>
+          <a onclick="openSession(3, 'topics')">Topics</a>
+          <a onclick="openSession(3, 'activity')">Activity</a>
+          <a onclick="openSession(3, 'quiz')">Formative Quiz</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar progress -->
+    <div class="sidebar-progress">
+      <p>Overall Progress</p>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill" id="sidebarProgressFill" style="width:0%"></div>
+      </div>
+      <div class="progress-label" id="sidebarProgressLabel">0 of 3 sessions completed</div>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+
+    <!-- PROGRESS TRACKER -->
+    <div class="progress-tracker">
+      <h3>Progress:</h3>
+      <div class="progress-step" id="step-1" data-session="1">
+        <div class="step-icon">1</div>
+        <span>Session 1</span>
+      </div>
+      <div class="progress-step" id="step-2" data-session="2">
+        <div class="step-icon">2</div>
+        <span>Session 2</span>
+      </div>
+      <div class="progress-step" id="step-3" data-session="3">
+        <div class="step-icon">3</div>
+        <span>Session 3</span>
+      </div>
+    </div>
+
+    <!-- ======================================================
+         WELCOME / OVERVIEW SECTION
+         ====================================================== -->
+    <section id="overview">
+      <div class="welcome-hero">
+        <div class="week-badge">&#9889; Week 1</div>
+        <h1>Electrical System Installation<br>and Wiring Works</h1>
+        <p>Welcome to Week 1 of <strong>EIM-2026: Electrical Installation and Maintenance</strong>. This module covers the foundational skills of electrical roughing-in, wiring and termination, and an introduction to FDAS and CCTV systems — all aligned with the Philippine Electrical Code (PEC) 2017 standards.</p>
+        <div class="welcome-meta">
+          <span class="meta-chip">&#127891; Grade 11 / Grade 12</span>
+          <span class="meta-chip">&#128218; TechPro: IA</span>
+          <span class="meta-chip">&#128336; 3 Sessions</span>
+          <span class="meta-chip">&#10003; PEC 2017 Aligned</span>
+          <span class="meta-chip">&#128196; EIM-2026</span>
+        </div>
+      </div>
+
+      <!-- Course Overview -->
+      <div class="overview-card">
+        <div class="overview-card-header">
+          <span>&#128218;</span> Course Overview
+        </div>
+        <div class="overview-card-body">
+          <p>This e-learning module is designed for Grade 11 and Grade 12 students enrolled in the <strong>TechPro: Industrial Arts — Electrical Installation and Maintenance (EIM)</strong> track under the K–12 Senior High School Technical-Vocational-Livelihood program. The content follows the <strong>Philippine Electrical Code (PEC) 2017</strong> and relevant NFPA standards.</p>
+          <p>By the end of Week 1, you will be able to plan and execute roughing-in work, perform correct wire termination and install protective devices, and describe the basic operation of Fire Detection and Alarm Systems (FDAS) and CCTV systems.</p>
+        </div>
+      </div>
+
+      <!-- Week at-a-Glance -->
+      <div class="overview-card">
+        <div class="overview-card-header">
+          <span>&#128200;</span> Week 1 at a Glance
+        </div>
+        <div class="overview-card-body">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Session Title</th>
+                <th>Key Topics</th>
+                <th>Key Competency</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>1</strong></td>
+                <td><strong>Roughing-In &amp; Electrical Planning</strong></td>
+                <td>PEC 2017, Electrical floor plans, Conduit types, Mounting heights</td>
+                <td>Plan and install conduits, boxes, and raceways per PEC</td>
+              </tr>
+              <tr>
+                <td><strong>2</strong></td>
+                <td><strong>Wiring, Termination &amp; Protective Devices</strong></td>
+                <td>Wire pulling, Terminal connections, Switch &amp; outlet wiring, Circuit breakers, GFCI/RCD</td>
+                <td>Perform correct wire termination; identify and install protective devices</td>
+              </tr>
+              <tr>
+                <td><strong>3</strong></td>
+                <td><strong>FDAS &amp; CCTV Introduction</strong></td>
+                <td>FDAS components, Conventional vs. Addressable, CCTV cable types, BNC termination</td>
+                <td>Describe FDAS and CCTV components, cable types, and system differences</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Navigation Instructions -->
+      <div class="overview-card">
+        <div class="overview-card-header">
+          <span>&#128161;</span> How to Use This Module
+        </div>
+        <div class="overview-card-body">
+          <div class="nav-instructions">
+            <strong>1. Navigate</strong> — Use the sidebar on the left to jump between sessions and sub-sections (Objectives, Topics, Activity, Quiz).<br>
+            <strong>2. Study</strong> — Click each session card to expand it. Switch between tabs (Objectives, Topics, Activity, Quiz) inside each session.<br>
+            <strong>3. Practice</strong> — Complete the Activity and take the 5-question Formative Quiz for each session.<br>
+            <strong>4. Track</strong> — Click <em>Mark as Complete</em> after finishing a session to update your progress bar.<br>
+            <strong>5. Review</strong> — You can retake any quiz as many times as you like. Use Ctrl+P or browser print to generate a print-friendly version.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================
+         SESSION 1: ROUGHING-IN & ELECTRICAL PLANNING
+         ====================================================== -->
+    <section id="session1">
+      <div class="session-accordion" id="acc1">
+        <button class="session-accordion-btn" onclick="toggleSession(1)">
+          <div class="acc-num">1</div>
+          <div class="acc-text">
+            <span class="acc-label">Session 1</span>
+            <h3>Roughing-In &amp; Electrical Planning</h3>
+          </div>
+          <span class="acc-status not-started" id="acc1-status">Not Started</span>
+          <svg class="acc-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+
+        <div class="session-body" id="body1">
+          <div class="session-body-inner">
+            <!-- Tabs -->
+            <div class="tab-bar">
+              <button class="tab-btn active" onclick="switchTab(1,'objectives',this)">&#127919; Objectives</button>
+              <button class="tab-btn" onclick="switchTab(1,'topics',this)">&#128218; Topics</button>
+              <button class="tab-btn" onclick="switchTab(1,'activity',this)">&#9998; Activity</button>
+              <button class="tab-btn" onclick="switchTab(1,'quiz',this)">&#10067; Quiz</button>
+            </div>
+
+            <!-- Objectives -->
+            <div class="tab-panel active" id="s1-objectives">
+              <div class="card">
+                <div class="section-header">
+                  <div class="section-num">&#9733;</div>
+                  <div>
+                    <span class="session-label">Session 1</span>
+                    <h2>Learning Objectives</h2>
+                  </div>
+                </div>
+                <div style="padding:20px 24px;">
+                  <p class="text-muted" style="margin-bottom:14px;">After completing Session 1, you will be able to:</p>
+                  <ol class="objectives-list">
+                    <li>Identify and explain core components of electrical plans and roughing-in materials based on PEC 2017 standards.</li>
+                    <li>Describe the different types of electrical conduits and boxes used in residential and commercial installations.</li>
+                    <li>Apply PEC mounting height rules for outlets and switches in actual and simulated installation scenarios.</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+
+            <!-- Topics -->
+            <div class="tab-panel" id="s1-topics">
+
+              <!-- PEC Overview -->
+              <div class="card">
+                <div class="section-header">
+                  <div class="section-num">1</div>
+                  <div>
+                    <span class="session-label">Topic 1</span>
+                    <h2>PEC 2017 Overview</h2>
+                  </div>
+                </div>
+                <div style="padding:20px 24px;">
+                  <div class="topic-block">
+                    <h4>What is the Philippine Electrical Code (PEC)?</h4>
+                    <p>The <strong>Philippine Electrical Code (PEC) 2017</strong> is the primary standard governing all electrical installations in the Philippines. It is published and maintained by the <strong>Institute of Integrated Electrical Engineers of the Philippines (IIEE)</strong> and is enforceable under the Philippine Electrical Engineering Act (R.A. 7920).</p>
+                    <div class="info-box blue" style="margin-top:12px;">
+                      <span class="ib-icon">&#8505;</span>
+                      <div><strong>Key Purpose of the PEC:</strong> Ensure electrical installations are safe, efficient, and standardized across all types of structures — residential, commercial, and industrial.</div>
+                    </div>
+                    <ul style="margin-top:12px;">
+                      <li><strong>Safety</strong> — prevents fires, electrocution, and equipment damage</li>
+                      <li><strong>Efficiency</strong> — promotes proper sizing of conductors, breakers, and equipment</li>
+                      <li><strong>Standardization</strong> — ensures consistent practices across all licensed electricians</li>
+                      <li><strong>Compliance</strong> — required for building permits and electrical inspection certificates</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Reading Electrical Floor Plans -->
+              <div class="card">
+                <div class="section-header">
+                  <div class="section-num">2</div>
+                  <div>
+                    <span class="session-label">Topic 2</span>
+                    <h2>Reading Electrical Floor Plans</h2>
+                  </div>
+                </div>
+                <div style="padding:20px 24px;">
+                  <div class="topic-block">
+                    <h4>Components of an Electrical Floor Plan</h4>
+                    <p>An electrical floor plan is a top-view drawing showing the layout of all electrical components in a building. It uses standardized symbols (legend) and is essential for roughing-in work.</p>
+                    <table class="data-table" style="margin-top:12px;">
+                      <thead>
+                        <tr>
+                          <th>Component</th>
+                          <th>Description</th>
+                          <th>Typical Symbol</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><strong>Legend / Symbols</strong></td>
+                          <td>Key that identifies all electrical symbols used in the plan</td>
+                          <td>Table of icons at the plan margin</td>
+                        </tr>
+                        <tr>
+                          <td><strong>Load Schedule</strong></td>
+                          <td>Table listing all circuits, loads (watts), and breaker ratings in each panel</td>
+                          <td>Tabular format on the sheet</td>
+                        </tr>
+                        <tr>
+                          <td><strong>Circuit Diagram / Single-Line</strong></td>
+                          <td>Simplified diagram showing the connection path of each circuit from panel to load</td>
+                          <td>Lines with tick marks indicating wire count</td>
+                        </tr>
+                        <tr>
+                          <td><strong>Outlet Symbol</strong></td>
+                          <td>Duplex outlet on wall or floor</td>
+                          <td>Circle with two parallel lines</td>
+                        </tr>
+                        <tr>
+                          <td><strong>Switch Symbol</strong></td>
+                          <td>Single-pole or multi-pole switch</td>
+                          <td>Circle with angled line (S)</td>
+                        </tr>
+                        <tr>
+                          <td><strong>Lighting Symbol</strong></td>
+                          <td>Ceiling-mounted light fixture</td>
+                          <td>Circle with X inside</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div class="info-box gold" style="margin-top:14px;">
+                      <span class="ib-icon">&#9888;</span>
+                      <div><strong>Always read the legend first</strong> before interpreting any electrical floor plan. Symbol conventions can vary slightly between architects and electrical engineers.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Roughing-In Concept -->
+              <div class="card">
+                <div class="section-header">
+                  <div class="section-num">3</div>
+                  <div>
+                    <span class="session-label">Topic 3</span>
+                    <h2>Roughing-In Concept</h2>
+                  </div>
+                </div>
+                <div style="padding:20px 24px;">
+                  <div class="topic-block">
+                    <h4>Definition and Purpose</h4>
+                    <p><strong>Roughing-in</strong> is the phase of electrical installation that involves installing conduits, electrical boxes, and raceways <em>before</em> walls, ceilings, and floors are finished (plastered/painted). It creates the pathways and mounting locations for all future wiring and devices.</p>
+                    <div class="info-box green" style="margin-top:10px;">
+                      <span class="ib-icon">&#10003;</span>
+                      <div><strong>Remember:</strong> No wires are pulled during roughing-in (except in some applications). The conduit system must be complete and inspected before the building envelope is closed.</div>
+                    </div>
+                    <h4 style="margin-top:18px;">Roughing-In Sequence</h4>
+                    <p>The correct sequence for roughing-in work is:</p>
+                    <ol style="padding-left:20px; margin-top:8px; font-size:14px; color:var(--gray-700); line-height:1.7;">
+                      <li><strong>Plan and Layout</strong> — Mark outlet, switch, and junction box locations on walls using chalk or pencil. Consult the electrical floor plan.</li>
+                      <li><strong>Conduit Installation</strong> — Run conduits from the main panel/sub-panel to all device locations. Use straps/supports to secure.</li>
+                      <li><strong>Box Installation</strong> — Mount utility boxes, switch boxes, and junction boxes at marked locations per PEC mounting heights.</li>
+                      <li><strong>Cable Pulling</strong> — Pull wires/cables through the installed conduit system.</li>
+                      <li><strong>Inspection</strong> — Rough-in inspection by authorized inspector before walls are closed.</li>
+                    </ol>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Conduit Types -->
+              <div class="card">
+                <div class="section-header">
+                  <div class="section-num">4</div>
+                  <div>
+                    <span class="session-label">Topic 4</span>
+                    <h2>Conduit Types</h2>
+                  </div>
+                </div>
+                <div style="padding:20px 24px;">
+                  <div class="topic-block">
+                    <h4>Types of Electrical Conduit</h4>
+                    <p>Conduits protect wiring from physical damage and provide a neat, organized pathway. The PEC specifies maximum support spacing for each type.</p>
+                  </div>
+                  <div class="conduit-compare">
+                    <div class="conduit-card">
+                      <h5>&#9881; EMT (Electrical Metallic Tubing)</h5>
+                      <ul>
+                        <li>Thin-walled rigid metal (steel or aluminum)</li>
+                        <li>Used where physical protection is needed</li>
+                        <li>Common in commercial and industrial settings</li>
+                        <li><strong>PEC strap spacing:</strong> Max 900 mm (3 m near fittings)</li>
+                        <li>Connected using compression or setscrew couplings</li>
+                        <li>Cannot be used underground without protection</li>
+                      </ul>
+                    </div>
+                    <div class="conduit-card">
+                      <h5>&#11835; PVC / UPVC Conduit</h5>
+                      <ul>
+                        <li>Non-metallic (polyvinyl chloride)</li>
+                        <li>Lightweight, corrosion-resistant</li>
+                        <li>Common in residential and wet locations</li>
+                        <li><strong>PEC support spacing:</strong> Max 900 mm</li>
+                        <li>Joined using PVC solvent cement and couplings</li>
+                        <li>UV-resistant UPVC used for outdoor exposed runs</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="info-box blue" style="margin-top:6px;">
+                    <span class="ib-icon">&#8505;</span>
+                    <div><strong>Conduit Bending — PEC Rules:</strong> The PEC specifies a minimum bend radius to prevent conductor insulation damage. For EMT, bends must not reduce the internal diameter. A <strong>conduit bender (hickey)</strong> is used for 90° stub-ups and offset bends. No more than four 90° bends (360° total) are permitted between pull boxes.</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Boxes and Mounting Heights -->
+              <div class="card">
+                <div class="section-header">
+                  <div class="section-num">5</div>
+                  <div>
+                    <span class="session-label">Topic 5</span>
+                    <h2>Utility Boxes, Junction Boxes &amp; Mounting Heights</h2>
+                  </div>
+                </div>
+                <div style="padding:20px 24px;">
+                  <div class="topic-block">
+                    <h4>Types of Electrical Boxes</h4>
+                    <table class="data-table">
+                      <thead>
+                        <tr>
+                          <th>Box Type</th>
+                          <th>Purpose</th>
+                          <th>Common Size</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><strong>Outlet Box (Utility Box)</strong></td>
+                          <td>Houses duplex outlets / receptacles</td>
+                          <td>2" × 4" or 4" × 4"</td>
+                        </tr>
+                        <tr>
+                          <td><strong>Switch Box</strong></td>
+                          <td>Houses single-pole or three-way switches</td>
+                          <td>2" × 4" single or gang box</td>
+                        </tr>
+                        <tr>
+                          <td><strong>Junction Box</strong></td>
+                          <td>Encloses wire splices; provides access point</td>
+                          <td>4" × 4" square or octagonal</td>
+                        </tr>
+                        <tr>
+                          <td><strong>Pull Box</strong></td>
+                          <td>Large access box for pulling conductors through long conduit runs</td>
+                          <td>Variable — depends on conduit size</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="topic-block" style="margin-top:18px;">
+                    <h4>PEC Mounting Heights (from Finished Floor)</h4>
+                    <table class="data-table">
+                      <thead>
+                        <tr>
+                          <th>Device</th>
+                          <th>PEC Mounting Height</th>
+                          <th>Notes</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><strong>Receptacle Outlet</strong></td>
+                          <td><span class="chip chip-gold">300 mm from floor</span></td>
+                          <td>Center of box to finished floor level</td>
+                        </tr>
+                        <tr>
+                          <td><strong>Wall Switch</strong></td>
+                          <td><span class="chip chip-blue">1,200 – 1,400 mm from floor</span></td>
+                          <td>Standard hand-reach height; may vary per architect</td>
+                        </tr>
+                        <tr>
+                          <td><strong>Junction Box</strong></td>
+                          <td>Accessible at all times</td>
+                          <td>Must not be concealed; provide access cover</td>
+                        </tr>
+                        <tr>
+                          <td><strong>GFCI Outlet (bathroom/kitchen)</strong></td>
+                          <td>Min. 300 mm, accessible from work surface</td>
+                          <td>Must be within reach and visible</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div class="info-box gold" style="margin-top:12px;">
+                      <span class="ib-icon">&#128204;</span>
+                      <div><strong>Remember:</strong> All mounting heights are measured from the <em>Finished Floor Level (FFL)</em> to the <em>center</em> of the electrical box. Always verify with the architectural drawings before installation.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div><!-- end s1-topics -->
+
+            <!-- Activity -->
+            <div class="tab-panel" id="s1-activity">
+              <div class="activity-box">
+                <div class="activity-title">
+                  <span class="activity-badge">Activity</span>
+                  Simulated Roughing-In Layout
+                </div>
+                <p><strong>Instructions:</strong> On a sheet of paper (or digital drawing tool), sketch a simple room roughing-in plan following the steps below. Your sketch should demonstrate understanding of PEC mounting heights and conduit routing.</p>
+                <h5 style="margin:14px 0 8px; font-size:13.5px; color:var(--navy);">Steps:</h5>
+                <ol>
+                  <li>Draw a simple rectangular room (approximately 4m × 5m). Include doors and windows.</li>
+                  <li>Mark <strong>four (4) duplex outlets</strong> on the walls at the correct PEC mounting height (300 mm from floor). Place them in at least three different walls.</li>
+                  <li>Mark <strong>two (2) single-pole switches</strong> near the door at the correct PEC mounting height (1,200–1,400 mm from floor).</li>
+                  <li>Mark <strong>one (1) junction box</strong> at the ceiling center for the lighting circuit.</li>
+                  <li>Draw the conduit routes from a <strong>distribution panel</strong> (located in one corner) to each box. Use straight lines with directional arrows.</li>
+                  <li>Label each box type (outlet box, switch box, junction box) and indicate the mounting height in millimeters.</li>
+                  <li>Include a simple legend identifying your symbols.</li>
+                </ol>
+                <h5 style="margin:14px 0 8px; font-size:13.5px; color:var(--navy);">Evaluation Criteria:</h5>
+                <ul>
+                  <li>Correct mounting heights for outlets and switches</li>
+                  <li>Logical conduit routing (no unnecessary crossing)</li>
+                  <li>All boxes properly labeled</li>
+                  <li>Legend included and accurate</li>
+                  <li>Overall neatness and clarity of the sketch</li>
+                </ul>
+                <div class="info-box blue" style="margin-top:14px;">
+                  <span class="ib-icon">&#128161;</span>
+                  <div><strong>Tip:</strong> In real installations, conduit routes follow the most direct path while avoiding structural members (beams, columns). Always plan your conduit route before bending or cutting conduit.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quiz Session 1 -->
+            <div class="tab-panel" id="s1-quiz">
+              <div class="quiz-header">
+                <h4>&#10067; Formative Quiz — Session 1</h4>
+                <div class="quiz-score-display" id="s1-score-display">Score: 0 / 5</div>
+              </div>
+              <p class="text-muted" style="margin-bottom:16px;">Select the best answer for each question, then click <strong>Check Answer</strong>. Complete all 5 questions to see your final score.</p>
+
+              <!-- Q1 -->
+              <div class="quiz-question" id="s1-q1">
+                <div class="quiz-q-num">Question 1 of 5</div>
+                <div class="quiz-q-text">What does PEC stand for in the context of Philippine electrical installations?</div>
+                <div class="quiz-options">
+                  <label class="quiz-option" onclick="selectOption('s1','q1','a')"><div class="opt-radio" id="s1-q1-a-radio"></div><span class="opt-text">Philippine Engineering Code</span></label>
+                  <label class="quiz-option" onclick="selectOption('s1','q1','b')"><div class="opt-radio" id="s1-q1-b-radio"></div><span class="opt-text">Philippine Electrical Code</span></label>
+                  <label class="quiz-option" onclick="selectOption('s1','q1','c')"><div class="opt-radio" id="s1-q1-c-radio"></div><span class="opt-text">Professional Electrician Certificate</span></label>
+                  <label class="quiz-option" onclick="selectOption('s1','q1','d')"><div class="opt-radio" id="s1-q1-d-radio"></div><span class="opt-text">Power Equipment Compliance</span></label>
+                </div>
+                <button class="quiz-check-btn" onclick="checkAnswer('s1','q1','b','Philippine Electrical Code — the primary standard governing all electrical installations in the Philippines, published by the IIEE.')">Check Answer</button>
+                <div class="quiz-feedback" id="s1-q1-feedback"></div>
+              </div>
+
+              <!-- Q2 -->
+              <div class="quiz-question" id="s1-q2">
+                <div class="quiz-q-num">Question 2 of 5</div>
+                <div class="quiz-q-text">What is the PEC-prescribed mounting height for a standard wall receptacle outlet (measured from the finished floor)?</div>
+                <div class="quiz-options">
+                  <label class="quiz-option" onclick="selectOption('s1','q2','a')"><div class="opt-radio" id="s1-q2-a-radio"></div><span class="opt-text">150 mm from the floor</span></label>
+                  <label class="quiz-option" onclick="selectOption('s1','q2','b')"><div class="opt-radio" id="s1-q2-b-radio"></div><span class="opt-text">600 mm from the floor</span></label>
+                  <label class="quiz-option" onclick="selectOption('s1','q2','c')"><div class="opt-radio" id="s1-q2-c-radio"></div><span class="opt-text">300 mm from the floor</span></label>
+                  <label class="quiz-option" onclick="selectOption('s1','q2','d')"><div class="opt-radio" id="s1-q2-d-radio"></div><span class="opt-text">1,200 mm from the floor</span></label>
+                </div>
+                <button class="quiz-check-btn" onclick="checkAnswer('s1','q2','c','The PEC requires outlets to be mounted at 300 mm from the finished floor level (measured to the center of the box).')">Check Answer</button>
+                <div class="quiz-feedback" id="s1-q2-feedback"></div>
+              </div>
+
+              <!-- Q3 -->
+              <div class="quiz-question" id="s1-q3">
+                <div class="quiz-q-num">Question 3 of 5</div>
+                <div class="quiz-q-text">What is the maximum strap/support spacing for EMT (Electrical Metallic Tubing) conduit as specified by the PEC?</div>
+                <div class="quiz-options">
+                  <label class="quiz-option" onclick="selectOption('s1','q3','a')"><div class="opt-radio" id="s1-q3-a-radio"></div><span class="opt-text">600 mm</span></label>
+                  <label class="quiz-option" onclick="selectOption('s1','q3','b')"><div class="opt-radio" id="s1-q3-b-radio"></div><span class="opt-text">900 mm</span></label>
+                  <label class="quiz-option" onclick="selectOption('s1','q3','c')"><div class="opt-radio" id="s1-q3-c-radio"></div><span class="opt-text">1,200 mm</span></label>
+                  <label class="quiz-option" onclick="selectOption('s1','q3','d')"><div class="opt-radio" id="s1-q3-d-radio"></div><span class="opt-text">1,800 mm</span></label>
+                </div>
+                <button class="quiz-check-btn" onclick="checkAnswer('s1','q3','b','The PEC specifies a maximum strap spacing of 900 mm (or 3 m near fittings) for EMT conduit to prevent sagging and maintain structural support.')">Check Answer</button>
+                <div class="quiz-feedback" id="s1-q3-feedback"></div>
+              </div>
+
+              <!-- Q4 -->
+              <div class="quiz-question" id="s1-q4">
+                <div class="quiz-q-num">Question 4 of 5</div>
+                <div class="quiz-q-text">What is the FIRST step in the roughing-in work sequence?</div>
+                <div class="quiz-options">
+                  <label class="quiz-option" onclick="selectOption('s1','q4','a')"><div class="opt-radio" id="s1-q4-a-radio"></div><span class="opt-text">Installing junction boxes</span></label>
+                  <label class="quiz-option" onclick="selectOption('s1','q4','b')"><div class="opt-radio" id="s1-q4-b-radio"></div><span class="opt-text">Pulling cables through the conduit</span></label>
+                  <label class="quiz-option" onclick="selectOption('s1','q4','c')"><div class="opt-radio" id="s1-q4-c-radio"></div><span class="opt-text">Planning and layout — marking box locations</span></label>
+                  <label class="quiz-option" onclick="selectOption('s1','q4','d')"><div class="opt-radio" id="s1-q4-d-radio"></div><span class="opt-text">Requesting electrical inspection</span></label>
+                </div>
+                <button class="quiz-check-btn" onclick="checkAnswer('s1','q4','c','The correct sequence begins with Planning and Layout — studying the electrical plan and marking the locations of all boxes and conduit routes before any physical installation.')">Check Answer</button>
+                <div class="quiz-feedback" id="s1-q4-feedback"></div>
+              </div>
+
+              <!-- Q5 -->
+              <div class="quiz-question" id="s1-q5">
+                <div class="quiz-q-num">Question 5 of 5</div>
+                <div class="quiz-q-text">Which tool is specifically used to make 90° bends in EMT conduit?</div>
+                <div class="quiz-options">
+                  <label class="quiz-option" onclick="selectOption('s1','q5','a')"><div class="opt-radio" id="s1-q5-a-radio"></div><span class="opt-text">Wire stripper</span></label>
+                  <label class="quiz-option" onclick="selectOption('s1','q5','b')"><div class="opt-radio" id="s1-q5-b-radio"></div><span class="opt-text">Fish tape</span></label>
+                  <label class="quiz-option" onclick="selectOption('s1','q5','c')"><div class="opt-radio" id="s1-q5-c-radio"></div><span class="opt-text">Conduit bender (hickey)</span></label>
+                  <label class="quiz-option" onclick="selectOption('s1','q5','d')"><div class="opt-radio" id="s1-q5-d-radio"></div><span class="opt-text">Pipe wrench</span></label>
+                </div>
+                <button class="quiz-check-btn" onclick="checkAnswer('s1','q5','c','A conduit bender (also called a hickey) is the dedicated tool for making precise 90° stub-ups, offset bends, and back-to-back bends in EMT and rigid metal conduit.')">Check Answer</button>
+                <div class="quiz-feedback" id="s1-q5-feedback"></div>
+              </div>
+
+              <!-- Results -->
+              <div class="quiz-results" id="s1-quiz-results">
+                <div class="score-big" id="s1-score-big">0/5</div>
+                <p id="s1-score-msg">Complete all questions to see your score.</p>
+                <button class="retake-btn" onclick="retakeQuiz('s1', 5)">&#8635; Retake Quiz</button>
+              </div>
+            </div><!-- end s1-quiz -->
+
+            <!-- Mark Complete -->
+            <button class="mark-complete-btn" id="complete-btn-1" onclick="markComplete(1)">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Mark Session 1 as Complete
+            </button>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================
+         SESSION 2: WIRING, TERMINATION & PROTECTIVE DEVICES
+         ====================================================== -->
+    <section id="session2">
+      <div class="session-accordion" id="acc2">
+        <button class="session-accordion-btn" onclick="toggleSession(2)">
+          <div class="acc-num">2</div>
+          <div class="acc-text">
+            <span class="acc-label">Session 2</span>
+            <h3>Wiring, Termination &amp; Protective Devices</h3>
+          </div>
+          <span class="acc-status not-started" id="acc2-status">Not Started</span>
+          <svg class="acc-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+
+        <div class="session-body" id="body2">
+          <div class="session-body-inner">
+            <div class="tab-bar">
+              <button class="tab-btn active" onclick="switchTab(2,'objectives',this)">&#127919; Objectives</button>
+              <button class="tab-btn" onclick="switchTab(2,'topics',this)">&#128218; Topics</button>
+              <button class="tab-btn" onclick="switchTab(2,'activity',this)">&#9998; Activity</button>
+              <button class="tab-btn" onclick="switchTab(2,'quiz',this)">&#10067; Quiz</button>
+            </div>
+
+            <!-- Objectives -->
+            <div class="tab-panel active" id="s2-objectives">
+              <div class="card">
+                <div class="section-header">
+                  <div class="section-num">&#9733;</div>
+                  <div>
+                    <span class="session-label">Session 2</span>
+                    <h2>Learning Objectives</h2>
+                  </div>
+                </div>
+                <div style="padding:20px 24px;">
+                  <p class="text-muted" style="margin-bottom:14px;">After completing Session 2, you will be able to:</p>
+                  <ol class="objectives-list">
+                    <li>Demonstrate correct wire termination procedures, including proper stripping length and terminal color coding.</li>
+                    <li>Identify and correctly wire single-pole switches and duplex outlets following PEC color coding standards.</li>
+                    <li>Identify and describe the function of protective devices including circuit breakers, fuses, and GFCI/RCD devices.</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+
+            <!-- Topics -->
+            <div class="tab-panel" id="s2-topics">
+
+              <!-- Wire Pulling and Stripping -->
+              <div class="card">
+                <div class="section-header">
+                  <div class="section-num">1</div>
+                  <div>
+                    <span class="session-label">Topic 1</span>
+                    <h2>Wire Pulling and Stripping</h2>
+                  </div>
+                </div>
+                <div style="padding:20px 24px;">
+                  <div class="topic-block">
+                    <h4>Wire Pulling Using Fish Tape</h4>
+                    <p>A <strong>fish tape</strong> (also called a draw wire or pull wire) is a flat, flexible steel or fiberglass ribbon used to thread wires through conduit. The wire is attached to the end of the fish tape and pulled through as the tape is retracted.</p>
+                    <ul>
+                      <li>Always use pulling lubricant (wire lube) for long runs or multiple conductors</li>
+                      <li>Pull from one end while a helper feeds wire at the other end</li>
+                      <li>Do not exceed the maximum fill capacity of the conduit (40% fill for 3+ conductors per PEC)</li>
+                    </ul>
+                  </div>
+                  <div class="topic-block" style="margin-top:16px;">
+                    <h4>Wire Stripping — Correct Procedure</h4>
+                    <p>Proper wire stripping is critical for safe and reliable terminal connections:</p>
+                    <table class="data-table" style="margin-top:10px;">
+                      <thead>
+                        <tr><th>Connection Type</th><th>Strip Length</th><th>Notes</th></tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Screw terminals (outlets, switches)</td>
+                          <td><strong>10–12 mm</strong></td>
+                          <td>Form a clockwise loop around the screw shank</td>
+                        </tr>
+                        <tr>
+                          <td>Push-in / stab-in connectors</td>
+                          <td><strong>12–14 mm</strong></td>
+                          <td>Insert straight; do not loop</td>
+                        </tr>
+                        <tr>
+                          <td>Wire nuts / twist connectors</td>
+                          <td><strong>20–25 mm</strong></td>
+                          <td>Twist wires together before applying wire nut</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div class="info-box gold" style="margin-top:12px;">
+                      <span class="ib-icon">&#9888;</span>
+                      <div><strong>Critical:</strong> Never nick or score the copper conductor while stripping. Nicking reduces the conductor's cross-sectional area, creating a weak point that can overheat and fail. Use a proper wire stripper — never a knife blade on conductors.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Termination Rules -->
+              <div class="card">
+                <div class="section-header">
+                  <div class="section-num">2</div>
+                  <div>
+                    <span class="session-label">Topic 2</span>
+                    <h2>Termination Rules &amp; Color Coding</h2>
+                  </div>
+                </div>
+                <div style="padding:20px 24px;">
+                  <div class="topic-block">
+                    <h4>Philippine/PEC Wire Color Coding</h4>
+                    <p>The PEC specifies color coding for wiring to ensure safe identification of conductors. Consistent application prevents dangerous mix-ups during installation and maintenance.</p>
+                  </div>
+                  <div class="wiring-visual">
+                    <div style="color:#94a3b8; font-size:11px; margin-bottom:10px; text-transform:uppercase; letter-spacing:1px;">Wire Color → Terminal Identification</div>
+                    <div class="wire-row">
+                      <div class="wire-swatch" style="background:#1a1a1a; border:1px solid #555;"></div>
+                      <span class="wire-label">Black (Hot)</span>
+                      <span class="wire-terminal">→ BRASS terminal (gold-colored screw)</span>
+                    </div>
+                    <div class="wire-row">
+                      <div class="wire-swatch" style="background:#f5f5f5; border:1px solid #888;"></div>
+                      <span class="wire-label">White (Neutral)</span>
+                      <span class="wire-terminal">→ SILVER terminal (silver-colored screw)</span>
+                    </div>
+                    <div class="wire-row">
+                      <div class="wire-swatch" style="background:#22c55e;"></div>
+                      <span class="wire-label">Green / Bare (Ground)</span>
+                      <span class="wire-terminal">→ GREEN screw terminal (ground lug)</span>
+                    </div>
+                    <div class="wire-row">
+                      <div class="wire-swatch" style="background:#ef4444;"></div>
+                      <span class="wire-label">Red (Hot — 240V / 3-wire)</span>
+                      <span class="wire-terminal">→ Second brass terminal or second hot leg</span>
+                    </div>
+                  </div>
+                  <div class="info-box blue" style="margin-top:10px;">
+                    <span class="ib-icon">&#128204;</span>
+                    <div><strong>Memory Aid — B-B, W-S, G-G:</strong> <em>Black → Brass</em>, <em>White → Silver</em>, <em>Green → Green screw</em>. This applies to all standard 120V outlet and switch wiring.</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Switch and Outlet Wiring -->
+              <div class="card">
+                <div class="section-header">
+                  <div class="section-num">3</div>
+                  <div>
+                    <span class="session-label">Topic 3</span>
+                    <h2>Switch &amp; Outlet Wiring</h2>
+                  </div>
+                </div>
+                <div style="padding:20px 24px;">
+                  <div class="topic-block">
+                    <h4>Single-Pole Switch Wiring</h4>
+                    <p>A single-pole switch controls one light or load from a single location. It interrupts the <strong>hot (black) wire</strong> only — the neutral wire passes through uninterrupted.</p>
+                    <ul>
+                      <li><strong>Line (hot) in</strong> → One terminal of the switch</li>
+                      <li><strong>Load out</strong> → Other terminal of the switch → to the light fixture</li>
+                      <li>Neutral wire runs directly from the panel to the light fixture</li>
+                      <li><strong>Switch loop concept:</strong> In older wiring, two-wire cable (black + white) is used for the switch leg. The white wire is re-identified with black tape to indicate it carries hot current.</li>
+                    </ul>
+                  </div>
+                  <div class="topic-block" style="margin-top:18px;">
+                    <h4>Duplex Outlet Wiring</h4>
+                    <p>A duplex receptacle (outlet) has a <strong>brass side</strong> (hot), a <strong>silver side</strong> (neutral), and a <strong>green screw</strong> (ground). The short slot is hot; the tall slot is neutral.</p>
+                    <ul>
+                      <li>Black (hot) → Brass terminal</li>
+                      <li>White (neutral) → Silver terminal</li>
+                      <li>Green/bare (ground) → Green screw</li>
+                      <li><strong>Pigtail method:</strong> When wiring multiple outlets on the same circuit, create a pigtail splice at each outlet — short wire twisted with incoming and outgoing wires, connected to outlet terminal. This prevents loss of power to subsequent outlets if one device is removed.</li>
+                    </ul>
+                    <div class="info-box green" style="margin-top:10px;">
+                      <span class="ib-icon">&#10003;</span>
+                      <div><strong>Best Practice:</strong> Always use the pigtail (splice) method rather than the back-stab/feed-through method for multiple outlet circuits. This is more reliable and conforms to good wiring practice.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Protective Devices -->
+              <div class="card">
+                <div class="section-header">
+                  <div class="section-num">4</div>
+                  <div>
+                    <span class="session-label">Topic 4</span>
+                    <h2>Protective Devices</h2>
+                  </div>
+                </div>
+                <div style="padding:20px 24px;">
+                  <div class="topic-block">
+                    <h4>Circuit Breaker</h4>
+                    <p>A <strong>circuit breaker</strong> is a resettable automatic switch that protects an electrical circuit from overload and short circuits by interrupting current flow.</p>
+                    <table class="data-table" style="margin-top:10px;">
+                      <thead>
+                        <tr><th>Feature</th><th>Description</th></tr>
+                      </thead>
+                      <tbody>
+                        <tr><td><strong>Operating Principle</strong></td><td>Thermal-magnetic: bimetallic strip trips on overload; electromagnetic coil trips on short circuit</td></tr>
+                        <tr><td><strong>Rating</strong></td><td>Rated in amperes (A): 15A, 20A, 30A, 60A, 100A, etc.</td></tr>
+                        <tr><td><strong>Main Breaker</strong></td><td>Protects the entire panel; disconnects all branch circuits</td></tr>
+                        <tr><td><strong>Branch Breaker</strong></td><td>Protects individual circuits (lighting, outlets, appliances)</td></tr>
+                        <tr><td><strong>Types</strong></td><td>Single-pole (120V), Double-pole (240V), AFCI, GFCI breakers</td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="topic-block" style="margin-top:18px;">
+                    <h4>Fuse</h4>
+                    <p>A <strong>fuse</strong> is a one-time overcurrent protection device. When current exceeds the rated value, a fusible element melts, opening the circuit. Unlike circuit breakers, fuses must be replaced after operation.</p>
+                    <ul>
+                      <li><strong>Cartridge fuse</strong> — cylindrical, used in panels and industrial equipment</li>
+                      <li><strong>Plug fuse (screw-type)</strong> — threaded into a socket, used in older residential panels</li>
+                      <li>Never replace a fuse with a higher rating — this defeats overcurrent protection</li>
+                    </ul>
+                  </div>
+                  <div class="topic-block" style="margin-top:18px;">
+                    <h4>GFCI and RCD</h4>
+                    <p>These devices protect against dangerous ground faults — current leaking to ground through a person.</p>
+                    <table class="data-table" style="margin-top:10px;">
+                      <thead>
+                        <tr><th>Device</th><th>Full Name</th><th>Location</th><th>Sensitivity</th></tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><strong>GFCI</strong></td>
+                          <td>Ground Fault Circuit Interrupter</td>
+                          <td>Outlet-type device (replaces standard outlet)</td>
+                          <td>Trips at 5 mA ground fault current</td>
+                        </tr>
+                        <tr>
+                          <td><strong>RCD</strong></td>
+                          <td>Residual Current Device</td>
+                          <td>Panel-level breaker or separate din-rail device</td>
+                          <td>Trips at 30 mA (general) or 5 mA (medical)</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div class="info-box blue" style="margin-top:12px;">
+                      <span class="ib-icon">&#8505;</span>
+                      <div><strong>Key Difference:</strong> GFCI is the <em>outlet-type</em> device with Test and Reset buttons on its face. RCD is the <em>panel-level</em> equivalent that protects an entire circuit or multiple circuits. Both detect ground faults as small as <strong>5 mA</strong> and trip within milliseconds. Required by PEC in bathrooms, kitchens, outdoors, garages, and near water sources.</div>
+                    </div>
+                    <h4 style="margin-top:16px;">GFCI Testing Procedure</h4>
+                    <ol style="padding-left:20px; font-size:14px; color:var(--gray-700); line-height:1.7;">
+                      <li>Press the <strong>TEST</strong> button — outlet should de-energize (plug-in light goes out)</li>
+                      <li>Press the <strong>RESET</strong> button — outlet re-energizes</li>
+                      <li>Test GFCI outlets monthly as recommended by NEMA</li>
+                      <li>Replace GFCI if it fails to trip on TEST or fails to reset</li>
+                    </ol>
+                  </div>
+                  <div class="topic-block" style="margin-top:18px;">
+                    <h4>Safety Requirements</h4>
+                    <p>When performing electrical wiring work, always follow these safety protocols:</p>
+                    <ul>
+                      <li><strong>PPE:</strong> Rubber insulating gloves (Class 0 minimum for 120/240V), safety glasses, insulating footwear</li>
+                      <li><strong>De-energize:</strong> Always turn off and lock out/tag out the circuit breaker before working on any circuit</li>
+                      <li><strong>Verify:</strong> Use a non-contact voltage tester or multimeter to confirm the circuit is de-energized before touching conductors</li>
+                      <li><strong>Work alone rule:</strong> Never work alone on energized circuits; always have a qualified person present</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+            </div><!-- end s2-topics -->
+
+            <!-- Activity -->
+            <div class="tab-panel" id="s2-activity">
+              <div class="activity-box">
+                <div class="activity-title">
+                  <span class="activity-badge">Activity</span>
+                  Identify and Label a Wiring Diagram
+                </div>
+                <p><strong>Instructions:</strong> Using the wiring diagram provided by your teacher (or the template below), label all terminal connections on a single-pole switch and a duplex outlet diagram.</p>
+                <h5 style="margin:14px 0 8px; font-size:13.5px; color:var(--navy);">What to Label:</h5>
+                <ol>
+                  <li><strong>On the Duplex Outlet:</strong> Identify and label the brass terminal, silver terminal, and green ground screw. Draw and label the hot (black), neutral (white), and ground (green) wires connecting to each terminal.</li>
+                  <li><strong>On the Single-Pole Switch:</strong> Label the line terminal (incoming hot), the load terminal (outgoing to fixture), and indicate the switch loop. Note which wire is re-identified if a switch loop is used.</li>
+                  <li><strong>On the GFCI Outlet:</strong> Identify the LINE and LOAD terminals on the back of the device. Explain what happens when the TEST button is pressed.</li>
+                  <li><strong>On the Circuit Breaker Panel Diagram:</strong> Identify the main breaker, branch breakers, hot bus bars, neutral bus bar, and ground bus bar.</li>
+                </ol>
+                <h5 style="margin:14px 0 8px; font-size:13.5px; color:var(--navy);">Wire Color Quick Reference:</h5>
+                <table class="data-table">
+                  <thead>
+                    <tr><th>Wire Color</th><th>Function</th><th>Terminal Color</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Black</td><td>Hot (Line / Live)</td><td>Brass (gold-colored)</td></tr>
+                    <tr><td>White</td><td>Neutral</td><td>Silver</td></tr>
+                    <tr><td>Green or Bare</td><td>Equipment Ground</td><td>Green screw</td></tr>
+                    <tr><td>Red</td><td>Second Hot (240V / 3-wire circuits)</td><td>Second brass terminal</td></tr>
+                  </tbody>
+                </table>
+                <div class="info-box gold" style="margin-top:14px;">
+                  <span class="ib-icon">&#128161;</span>
+                  <div><strong>Challenge:</strong> Draw and label a complete wiring diagram for a bedroom circuit with one switch controlling one ceiling light AND one unswitched duplex outlet on the same circuit. Show the panel, switch, light, and outlet with correct wire colors on all conductors.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quiz Session 2 -->
+            <div class="tab-panel" id="s2-quiz">
+              <div class="quiz-header">
+                <h4>&#10067; Formative Quiz — Session 2</h4>
+                <div class="quiz-score-display" id="s2-score-display">Score: 0 / 5</div>
+              </div>
+              <p class="text-muted" style="margin-bottom:16px;">Select the best answer for each question, then click <strong>Check Answer</strong>.</p>
+
+              <!-- Q1 -->
+              <div class="quiz-question" id="s2-q1">
+                <div class="quiz-q-num">Question 1 of 5</div>
+                <div class="quiz-q-text">Where does the hot (black) wire connect on a standard duplex outlet?</div>
+                <div class="quiz-options">
+                  <label class="quiz-option" onclick="selectOption('s2','q1','a')"><div class="opt-radio" id="s2-q1-a-radio"></div><span class="opt-text">Silver terminal</span></label>
+                  <label class="quiz-option" onclick="selectOption('s2','q1','b')"><div class="opt-radio" id="s2-q1-b-radio"></div><span class="opt-text">Green screw terminal</span></label>
+                  <label class="quiz-option" onclick="selectOption('s2','q1','c')"><div class="opt-radio" id="s2-q1-c-radio"></div><span class="opt-text">Brass terminal</span></label>
+                  <label class="quiz-option" onclick="selectOption('s2','q1','d')"><div class="opt-radio" id="s2-q1-d-radio"></div><span class="opt-text">Any terminal — polarity does not matter</span></label>
+                </div>
+                <button class="quiz-check-btn" onclick="checkAnswer('s2','q1','c','The hot (black) wire always connects to the BRASS (gold-colored) terminal on a duplex outlet. The short slot on the outlet face corresponds to the brass/hot side.')">Check Answer</button>
+                <div class="quiz-feedback" id="s2-q1-feedback"></div>
+              </div>
+
+              <!-- Q2 -->
+              <div class="quiz-question" id="s2-q2">
+                <div class="quiz-q-num">Question 2 of 5</div>
+                <div class="quiz-q-text">What does GFCI stand for?</div>
+                <div class="quiz-options">
+                  <label class="quiz-option" onclick="selectOption('s2','q2','a')"><div class="opt-radio" id="s2-q2-a-radio"></div><span class="opt-text">General Fault Current Indicator</span></label>
+                  <label class="quiz-option" onclick="selectOption('s2','q2','b')"><div class="opt-radio" id="s2-q2-b-radio"></div><span class="opt-text">Ground Fault Circuit Interrupter</span></label>
+                  <label class="quiz-option" onclick="selectOption('s2','q2','c')"><div class="opt-radio" id="s2-q2-c-radio"></div><span class="opt-text">Grounded Fixture Current Isolator</span></label>
+                  <label class="quiz-option" onclick="selectOption('s2','q2','d')"><div class="opt-radio" id="s2-q2-d-radio"></div><span class="opt-text">Ground Fault Connector Interface</span></label>
+                </div>
+                <button class="quiz-check-btn" onclick="checkAnswer('s2','q2','b','GFCI stands for Ground Fault Circuit Interrupter. It is an outlet-type device that detects ground faults as small as 5 mA and trips within milliseconds to protect against electrocution.')">Check Answer</button>
+                <div class="quiz-feedback" id="s2-q2-feedback"></div>
+              </div>
+
+              <!-- Q3 -->
+              <div class="quiz-question" id="s2-q3">
+                <div class="quiz-q-num">Question 3 of 5</div>
+                <div class="quiz-q-text">What is the key difference between a GFCI outlet and an RCD?</div>
+                <div class="quiz-options">
+                  <label class="quiz-option" onclick="selectOption('s2','q3','a')"><div class="opt-radio" id="s2-q3-a-radio"></div><span class="opt-text">GFCI protects against overloads; RCD protects against short circuits</span></label>
+                  <label class="quiz-option" onclick="selectOption('s2','q3','b')"><div class="opt-radio" id="s2-q3-b-radio"></div><span class="opt-text">GFCI is outlet-type; RCD is panel-level — both detect ground faults</span></label>
+                  <label class="quiz-option" onclick="selectOption('s2','q3','c')"><div class="opt-radio" id="s2-q3-c-radio"></div><span class="opt-text">GFCI is for commercial use; RCD is for residential use only</span></label>
+                  <label class="quiz-option" onclick="selectOption('s2','q3','d')"><div class="opt-radio" id="s2-q3-d-radio"></div><span class="opt-text">There is no difference — they are the same device with different names</span></label>
+                </div>
+                <button class="quiz-check-btn" onclick="checkAnswer('s2','q3','b','GFCI is an outlet-type device installed in place of a standard receptacle, with visible TEST/RESET buttons. RCD (Residual Current Device) is the panel-level equivalent that protects one or more entire circuits. Both detect and respond to ground faults as small as 5 mA.')">Check Answer</button>
+                <div class="quiz-feedback" id="s2-q3-feedback"></div>
+              </div>
+
+              <!-- Q4 -->
+              <div class="quiz-question" id="s2-q4">
+                <div class="quiz-q-num">Question 4 of 5</div>
+                <div class="quiz-q-text">What is the PRIMARY purpose of a circuit breaker in a residential electrical panel?</div>
+                <div class="quiz-options">
+                  <label class="quiz-option" onclick="selectOption('s2','q4','a')"><div class="opt-radio" id="s2-q4-a-radio"></div><span class="opt-text">To monitor energy consumption and provide usage reports</span></label>
+                  <label class="quiz-option" onclick="selectOption('s2','q4','b')"><div class="opt-radio" id="s2-q4-b-radio"></div><span class="opt-text">To protect circuits from overload and short circuit conditions</span></label>
+                  <label class="quiz-option" onclick="selectOption('s2','q4','c')"><div class="opt-radio" id="s2-q4-c-radio"></div><span class="opt-text">To regulate voltage and prevent power surges</span></label>
+                  <label class="quiz-option" onclick="selectOption('s2','q4','d')"><div class="opt-radio" id="s2-q4-d-radio"></div><span class="opt-text">To increase the power factor of the electrical system</span></label>
+                </div>
+                <button class="quiz-check-btn" onclick="checkAnswer('s2','q4','b','A circuit breaker\'s primary purpose is to protect circuits from overload (excessive current over time) and short circuits (sudden extreme overcurrent) by automatically tripping and opening the circuit. It can be reset after the fault is corrected.')">Check Answer</button>
+                <div class="quiz-feedback" id="s2-q4-feedback"></div>
+              </div>
+
+              <!-- Q5 -->
+              <div class="quiz-question" id="s2-q5">
+                <div class="quiz-q-num">Question 5 of 5</div>
+                <div class="quiz-q-text">Which Personal Protective Equipment (PPE) is most essential when performing electrical wiring work on a de-energized 240V circuit?</div>
+                <div class="quiz-options">
+                  <label class="quiz-option" onclick="selectOption('s2','q5','a')"><div class="opt-radio" id="s2-q5-a-radio"></div><span class="opt-text">Hard hat and steel-toed boots only</span></label>
+                  <label class="quiz-option" onclick="selectOption('s2','q5','b')"><div class="opt-radio" id="s2-q5-b-radio"></div><span class="opt-text">Rubber insulating gloves and safety glasses</span></label>
+                  <label class="quiz-option" onclick="selectOption('s2','q5','c')"><div class="opt-radio" id="s2-q5-c-radio"></div><span class="opt-text">Face shield and leather work gloves</span></label>
+                  <label class="quiz-option" onclick="selectOption('s2','q5','d')"><div class="opt-radio" id="s2-q5-d-radio"></div><span class="opt-text">No PPE needed since the circuit is de-energized</span></label>
+                </div>
+                <button class="quiz-check-btn" onclick="checkAnswer('s2','q5','b','Rubber insulating gloves and safety glasses are required PPE for electrical wiring work. Even on a de-energized circuit, there is always risk of accidental energization. Rubber insulating gloves (Class 0 minimum for up to 1,000V) protect against shock; safety glasses protect against arc flash and debris.')">Check Answer</button>
+                <div class="quiz-feedback" id="s2-q5-feedback"></div>
+              </div>
+
+              <div class="quiz-results" id="s2-quiz-results">
+                <div class="score-big" id="s2-score-big">0/5</div>
+                <p id="s2-score-msg">Complete all questions to see your score.</p>
+                <button class="retake-btn" onclick="retakeQuiz('s2', 5)">&#8635; Retake Quiz</button>
+              </div>
+            </div><!-- end s2-quiz -->
+
+            <!-- Mark Complete -->
+            <button class="mark-complete-btn" id="complete-btn-2" onclick="markComplete(2)">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Mark Session 2 as Complete
+            </button>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================
+         SESSION 3: FDAS & CCTV
+         ====================================================== -->
+    <section id="session3">
+      <div class="session-accordion" id="acc3">
+        <button class="session-accordion-btn" onclick="toggleSession(3)">
+          <div class="acc-num">3</div>
+          <div class="acc-text">
+            <span class="acc-label">Session 3</span>
+            <h3>FDAS &amp; CCTV Introduction</h3>
+          </div>
+          <span class="acc-status not-started" id="acc3-status">Not Started</span>
+          <svg class="acc-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+
+        <div class="session-body" id="body3">
+          <div class="session-body-inner">
+            <div class="tab-bar">
+              <button class="tab-btn active" onclick="switchTab(3,'objectives',this)">&#127919; Objectives</button>
+              <button class="tab-btn" onclick="switchTab(3,'topics',this)">&#128218; Topics</button>
+              <button class="tab-btn" onclick="switchTab(3,'activity',this)">&#9998; Activity</button>
+              <button class="tab-btn" onclick="switchTab(3,'quiz',this)">&#10067; Quiz</button>
+            </div>
+
+            <!-- Objectives -->
+            <div class="tab-panel active" id="s3-objectives">
+              <div class="card">
+                <div class="section-header">
+                  <div class="section-num">&#9733;</div>
+                  <div>
+                    <span class="session-label">Session 3</span>
+                    <h2>Learning Objectives</h2>
+                  </div>
+                </div>
+                <div style="padding:20px 24px;">
+                  <p class="text-muted" style="margin-bottom:14px;">After completing Session 3, you will be able to:</p>
+                  <ol class="objectives-list">
+                    <li>Describe the components and operating principles of Fire Detection and Alarm Systems (FDAS), including conventional and addressable system types.</li>
+                    <li>Describe the components and cable types used in CCTV systems (analog and IP-based), including correct cable termination procedures.</li>
+                    <li>Distinguish between conventional and addressable FDAS systems in terms of device identification, wiring topology, and system capability.</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+
+            <!-- Topics -->
+            <div class="tab-panel" id="s3-topics">
+
+              <!-- FDAS Components -->
+              <div class="card">
+                <div class="section-header">
+                  <div class="section-num">1</div>
+                  <div>
+                    <span class="session-label">Topic 1</span>
+                    <h2>FDAS — Components and Overview</h2>
+                  </div>
+                </div>
+                <div style="padding:20px 24px;">
+                  <div class="topic-block">
+                    <h4>What is FDAS?</h4>
+                    <p>A <strong>Fire Detection and Alarm System (FDAS)</strong> is an integrated network of devices designed to detect fire or smoke, notify occupants of a fire emergency, and support orderly evacuation. In the Philippines, FDAS design and installation is governed by the <strong>Fire Code of the Philippines (R.A. 9514)</strong> and references <strong>NFPA 72 (National Fire Alarm and Signaling Code)</strong>.</p>
+                  </div>
+                  <div class="topic-block" style="margin-top:16px;">
+                    <h4>FDAS Components</h4>
+                    <table class="data-table">
+                      <thead>
+                        <tr><th>Component</th><th>Function</th><th>Location</th></tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><strong>Smoke Detector</strong></td>
+                          <td>Detects products of combustion (smoke particles). Types: ionization (fast flaming fires) and photoelectric (slow smoldering fires)</td>
+                          <td>Ceilings, hallways, rooms</td>
+                        </tr>
+                        <tr>
+                          <td><strong>Heat Detector</strong></td>
+                          <td>Responds to abnormal temperature rise. Types: fixed temperature (e.g., 57°C) and rate-of-rise</td>
+                          <td>Kitchens, boiler rooms, dusty areas</td>
+                        </tr>
+                        <tr>
+                          <td><strong>Manual Call Point (MCP)</strong></td>
+                          <td>Manual activation device — person breaks glass or presses button to trigger alarm</td>
+                          <td>Near exits, stairwells, corridors</td>
+                        </tr>
+                        <tr>
+                          <td><strong>Fire Alarm Control Panel (FACP)</strong></td>
+                          <td>Central intelligence of the FDAS — monitors all zones/devices, triggers alarms, logs events</td>
+                          <td>Security room, lobby, or main entrance</td>
+                        </tr>
+                        <tr>
+                          <td><strong>Sounders / Bells / Horns</strong></td>
+                          <td>Audible alarm notification for occupants</td>
+                          <td>Corridors, stairwells, throughout building</td>
+                        </tr>
+                        <tr>
+                          <td><strong>Visual Notification (Strobe)</strong></td>
+                          <td>Flashing visual alarm for hearing-impaired occupants; required in NFPA 72</td>
+                          <td>Adjacent to sounders in public spaces</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Conventional vs Addressable -->
+              <div class="card">
+                <div class="section-header">
+                  <div class="section-num">2</div>
+                  <div>
+                    <span class="session-label">Topic 2</span>
+                    <h2>Conventional vs. Addressable FDAS</h2>
+                  </div>
+                </div>
+                <div style="padding:20px 24px;">
+                  <div class="topic-block">
+                    <h4>System Types Comparison</h4>
+                  </div>
+                  <table class="data-table">
+                    <thead>
+                      <tr>
+                        <th>Feature</th>
+                        <th>Conventional FDAS</th>
+                        <th>Addressable FDAS</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><strong>Identification</strong></td>
+                        <td>Identifies alarm by zone only (multiple devices per zone)</td>
+                        <td>Identifies exact device address — knows which specific detector alarmed</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Wiring</strong></td>
+                        <td>Each zone wired in a series circuit back to FACP</td>
+                        <td>Loop/star topology; devices on a two-wire SLC loop</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Cost</strong></td>
+                        <td>Lower initial cost</td>
+                        <td>Higher initial cost; more efficient for large buildings</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Suitable For</strong></td>
+                        <td>Small to medium buildings (residences, small offices)</td>
+                        <td>Large buildings (hospitals, malls, high-rises)</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Fault Detection</strong></td>
+                        <td>Identifies fault by zone; harder to pinpoint</td>
+                        <td>Pinpoints exact device with fault or alarm</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Device Capacity</strong></td>
+                        <td>Limited by number of zones on FACP</td>
+                        <td>Up to 99–250+ devices per loop depending on FACP model</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div class="topic-block" style="margin-top:18px;">
+                    <h4>Supervised Circuits and End-of-Line Resistor (EOLR)</h4>
+                    <p>The FACP constantly monitors the integrity of each detection loop. This is called a <strong>supervised circuit</strong>. If a wire is cut or disconnected, the FACP immediately signals a <strong>trouble condition</strong>.</p>
+                    <ul>
+                      <li>An <strong>End-of-Line Resistor (EOLR)</strong> is placed at the last device on each zone or loop</li>
+                      <li>The FACP measures the resistance of the circuit. Normal resistance = circuit intact; open circuit = wire broken; short circuit = devices shorted</li>
+                      <li>The EOLR value is specified by the FACP manufacturer (typically 1 kΩ to 10 kΩ)</li>
+                    </ul>
+                    <div class="info-box gold" style="margin-top:12px;">
+                      <span class="ib-icon">&#9888;</span>
+                      <div><strong>Critical:</strong> The EOLR must be installed at the physically last device on the loop — NOT at the panel. Installing it at the panel would not detect wire faults between the panel and the devices.</div>
+                    </div>
+                  </div>
+                  <div class="topic-block" style="margin-top:16px;">
+                    <h4>PEC and NFPA Requirements</h4>
+                    <p>In the Philippines, FDAS installations must comply with:</p>
+                    <ul>
+                      <li><strong>NFPA 72</strong> — National Fire Alarm and Signaling Code (referenced by the Fire Code of the Philippines)</li>
+                      <li><strong>RA 9514</strong> — Revised Fire Code of the Philippines</li>
+                      <li>Bureau of Fire Protection (BFP) issuances and inspection requirements</li>
+                      <li>All FDAS wiring to use fire-rated cables in fire-rated conduit where required by code</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- CCTV -->
+              <div class="card">
+                <div class="section-header">
+                  <div class="section-num">3</div>
+                  <div>
+                    <span class="session-label">Topic 3</span>
+                    <h2>CCTV Systems — Components and Cables</h2>
+                  </div>
+                </div>
+                <div style="padding:20px 24px;">
+                  <div class="topic-block">
+                    <h4>CCTV System Components</h4>
+                    <table class="data-table">
+                      <thead>
+                        <tr><th>Component</th><th>Description</th><th>Notes</th></tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><strong>Analog Camera</strong></td>
+                          <td>Traditional camera; outputs composite video signal via coaxial cable</td>
+                          <td>AHD, TVI, CVI, CVBS formats</td>
+                        </tr>
+                        <tr>
+                          <td><strong>IP Camera</strong></td>
+                          <td>Network-connected camera; outputs digital video over Ethernet</td>
+                          <td>Higher resolution; supports PoE</td>
+                        </tr>
+                        <tr>
+                          <td><strong>DVR</strong></td>
+                          <td>Digital Video Recorder — records analog camera footage to hard drive</td>
+                          <td>For analog (coaxial cable) systems</td>
+                        </tr>
+                        <tr>
+                          <td><strong>NVR</strong></td>
+                          <td>Network Video Recorder — records IP camera footage over network</td>
+                          <td>For IP (UTP/Ethernet) systems</td>
+                        </tr>
+                        <tr>
+                          <td><strong>Monitor</strong></td>
+                          <td>Displays live and recorded footage; connected to DVR/NVR</td>
+                          <td>BNC or HDMI connection</td>
+                        </tr>
+                        <tr>
+                          <td><strong>Power Supply</strong></td>
+                          <td>12V DC (analog cameras) or PoE switch/injector (IP cameras)</td>
+                          <td>Centralized or distributed</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="topic-block" style="margin-top:18px;">
+                    <h4>Cable Types for CCTV</h4>
+                    <table class="data-table">
+                      <thead>
+                        <tr><th>Cable Type</th><th>Used For</th><th>Characteristics</th></tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><strong>RG59 Coaxial</strong></td>
+                          <td>Analog CCTV video (standard definition)</td>
+                          <td>75Ω impedance; max ~300m for standard CCTV; 95% braid shielding</td>
+                        </tr>
+                        <tr>
+                          <td><strong>RG6 Coaxial</strong></td>
+                          <td>Analog CCTV video (HD-TVI/AHD, longer runs)</td>
+                          <td>75Ω impedance; lower signal loss than RG59; max ~500m</td>
+                        </tr>
+                        <tr>
+                          <td><strong>UTP Cat5e</strong></td>
+                          <td>IP cameras (standard installations)</td>
+                          <td>4 twisted pairs; 100 MHz bandwidth; max 100m per segment</td>
+                        </tr>
+                        <tr>
+                          <td><strong>UTP Cat6</strong></td>
+                          <td>IP cameras (high-resolution, high-density)</td>
+                          <td>4 twisted pairs; 250 MHz bandwidth; better noise rejection</td>
+                        </tr>
+                        <tr>
+                          <td><strong>PoE (Power over Ethernet)</strong></td>
+                          <td>IP cameras powered via Cat5e/Cat6</td>
+                          <td>IEEE 802.3af (15W) or 802.3at (30W); power + data in one cable; max 100m</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="topic-block" style="margin-top:18px;">
+                    <h4>BNC Connector Termination</h4>
+                    <p>The <strong>BNC (Bayonet Neill-Concelman) connector</strong> is the standard connector for analog CCTV coaxial cable. The crimp-type BNC is the most common for field installation.</p>
+                    <ol style="padding-left:20px; font-size:14px; color:var(--gray-700); line-height:1.8; margin-top:8px;">
+                      <li><strong>Measure and strip outer jacket:</strong> Remove approximately 15mm of outer PVC jacket using a coaxial stripping tool</li>
+                      <li><strong>Fold back the braided shield:</strong> Carefully fold the copper braid back over the outer jacket</li>
+                      <li><strong>Strip inner insulation (dielectric):</strong> Remove approximately 5mm of the white foam dielectric to expose the center conductor</li>
+                      <li><strong>Insert into BNC body:</strong> Slide the crimp ferrule onto the cable, then insert the stripped cable into the BNC body ensuring the center conductor seats into the BNC pin</li>
+                      <li><strong>Crimp:</strong> Use a coaxial cable crimping tool to crimp the ferrule onto the cable body</li>
+                      <li><strong>Test:</strong> Use a coaxial cable tester or multimeter to verify continuity and no short between center conductor and shield</li>
+                    </ol>
+                    <div class="info-box blue" style="margin-top:12px;">
+                      <span class="ib-icon">&#8505;</span>
+                      <div><strong>PoE Advantage:</strong> Power over Ethernet (PoE) eliminates the need for a separate power cable to each IP camera. A single Cat5e/Cat6 cable carries both the network data and 12–48V DC power from a PoE switch or injector. This significantly simplifies installation, especially for ceiling-mounted cameras far from power outlets.</div>
+                    </div>
+                  </div>
+                  <div class="topic-block" style="margin-top:18px;">
+                    <h4>Camera Placement Guidelines</h4>
+                    <ul>
+                      <li><strong>Mounting height:</strong> 2.5 m to 3.0 m from the floor — balances coverage angle and facial recognition capability</li>
+                      <li><strong>Coverage angle:</strong> Position cameras to cover entry/exit points, cashier areas, walkways, and parking areas</li>
+                      <li><strong>Avoid backlight:</strong> Do not aim cameras directly at windows or bright light sources — use Wide Dynamic Range (WDR) cameras if backlight is unavoidable</li>
+                      <li><strong>Overlap zones:</strong> Adjacent cameras should have 10–20% field overlap for continuous coverage</li>
+                      <li><strong>IR illuminators:</strong> Use IR-capable cameras for night vision in unlit areas</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+            </div><!-- end s3-topics -->
+
+            <!-- Activity -->
+            <div class="tab-panel" id="s3-activity">
+              <div class="activity-box">
+                <div class="activity-title">
+                  <span class="activity-badge">Activity</span>
+                  FDAS vs. CCTV Comparison Table
+                </div>
+                <p><strong>Instructions:</strong> Fill in the comparison table below with information from Session 3. Use your notes and the topics above to complete each cell accurately.</p>
+                <table class="data-table" style="margin:14px 0;">
+                  <thead>
+                    <tr>
+                      <th>Category</th>
+                      <th>FDAS (Fire Detection and Alarm System)</th>
+                      <th>CCTV (Closed-Circuit Television)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>Primary Purpose</strong></td>
+                      <td style="background:#fffbf0; color:#7a4b00;">Detect and alert occupants of fire/smoke emergencies</td>
+                      <td style="background:#fffbf0; color:#7a4b00;">Monitor, record, and deter security threats</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Detection Devices</strong></td>
+                      <td style="background:#f0f9ff; color:#1e3a5f;">Smoke detector, heat detector, MCP</td>
+                      <td style="background:#f0f9ff; color:#1e3a5f;">Analog camera, IP camera</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Central Controller</strong></td>
+                      <td style="background:#fffbf0; color:#7a4b00;">FACP (Fire Alarm Control Panel)</td>
+                      <td style="background:#fffbf0; color:#7a4b00;">DVR (analog) or NVR (IP)</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Cable Types</strong></td>
+                      <td style="background:#f0f9ff; color:#1e3a5f;">Fire-rated 2-wire or 4-wire shielded cable</td>
+                      <td style="background:#f0f9ff; color:#1e3a5f;">RG59/RG6 coaxial (analog) or Cat5e/Cat6 UTP (IP)</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Notification Output</strong></td>
+                      <td style="background:#fffbf0; color:#7a4b00;">Bells, horns, strobes</td>
+                      <td style="background:#fffbf0; color:#7a4b00;">Monitor displays, mobile alerts</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Governing Standard</strong></td>
+                      <td style="background:#f0f9ff; color:#1e3a5f;">NFPA 72 / RA 9514 (Fire Code Philippines)</td>
+                      <td style="background:#f0f9ff; color:#1e3a5f;">NPC (National Privacy Commission) regulations, local ordinances</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Power Requirement</strong></td>
+                      <td style="background:#fffbf0; color:#7a4b00;">24V DC from FACP; battery backup required</td>
+                      <td style="background:#fffbf0; color:#7a4b00;">12V DC (analog) or PoE (IP cameras)</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <h5 style="margin:14px 0 8px; font-size:13.5px; color:var(--navy);">Extension Activity:</h5>
+                <ol>
+                  <li>Draw a simple floor plan showing the placement of 4 smoke detectors, 2 Manual Call Points, and 1 FACP for a 3-room office floor.</li>
+                  <li>On the same plan, add 3 CCTV cameras to cover the main entrance, corridor, and exit. Label each camera and indicate the cable type you would use.</li>
+                  <li>Identify which areas would require GFCI protection and mark them on your plan.</li>
+                </ol>
+                <div class="info-box blue" style="margin-top:14px;">
+                  <span class="ib-icon">&#128161;</span>
+                  <div><strong>Remember:</strong> Both FDAS and CCTV systems require careful planning and layout before installation. Always obtain a copy of the architectural floor plan and consult with the system designer before drilling holes or pulling cables.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quiz Session 3 -->
+            <div class="tab-panel" id="s3-quiz">
+              <div class="quiz-header">
+                <h4>&#10067; Formative Quiz — Session 3</h4>
+                <div class="quiz-score-display" id="s3-score-display">Score: 0 / 5</div>
+              </div>
+              <p class="text-muted" style="margin-bottom:16px;">Select the best answer for each question, then click <strong>Check Answer</strong>.</p>
+
+              <!-- Q1 -->
+              <div class="quiz-question" id="s3-q1">
+                <div class="quiz-q-num">Question 1 of 5</div>
+                <div class="quiz-q-text">What does FACP stand for in an FDAS system?</div>
+                <div class="quiz-options">
+                  <label class="quiz-option" onclick="selectOption('s3','q1','a')"><div class="opt-radio" id="s3-q1-a-radio"></div><span class="opt-text">Fire Alarm Circuit Panel</span></label>
+                  <label class="quiz-option" onclick="selectOption('s3','q1','b')"><div class="opt-radio" id="s3-q1-b-radio"></div><span class="opt-text">Fire Alarm Control Panel</span></label>
+                  <label class="quiz-option" onclick="selectOption('s3','q1','c')"><div class="opt-radio" id="s3-q1-c-radio"></div><span class="opt-text">Fire Activation Control Point</span></label>
+                  <label class="quiz-option" onclick="selectOption('s3','q1','d')"><div class="opt-radio" id="s3-q1-d-radio"></div><span class="opt-text">Fault Alarm Control Panel</span></label>
+                </div>
+                <button class="quiz-check-btn" onclick="checkAnswer('s3','q1','b','FACP stands for Fire Alarm Control Panel. It is the central intelligence of the FDAS — it monitors all zones and devices, triggers alarms and notification appliances, and logs events.')">Check Answer</button>
+                <div class="quiz-feedback" id="s3-q1-feedback"></div>
+              </div>
+
+              <!-- Q2 -->
+              <div class="quiz-question" id="s3-q2">
+                <div class="quiz-q-num">Question 2 of 5</div>
+                <div class="quiz-q-text">What is the purpose of the End-of-Line Resistor (EOLR) in a conventional FDAS?</div>
+                <div class="quiz-options">
+                  <label class="quiz-option" onclick="selectOption('s3','q2','a')"><div class="opt-radio" id="s3-q2-a-radio"></div><span class="opt-text">To limit the current to each detector to prevent overheating</span></label>
+                  <label class="quiz-option" onclick="selectOption('s3','q2','b')"><div class="opt-radio" id="s3-q2-b-radio"></div><span class="opt-text">To complete the supervised circuit and confirm loop continuity</span></label>
+                  <label class="quiz-option" onclick="selectOption('s3','q2','c')"><div class="opt-radio" id="s3-q2-c-radio"></div><span class="opt-text">To amplify the signal from the last detector on the zone</span></label>
+                  <label class="quiz-option" onclick="selectOption('s3','q2','d')"><div class="opt-radio" id="s3-q2-d-radio"></div><span class="opt-text">To protect the FACP from voltage surges</span></label>
+                </div>
+                <button class="quiz-check-btn" onclick="checkAnswer('s3','q2','b','The EOLR is placed at the last device on a detection zone loop. The FACP continuously measures the circuit resistance. A normal reading confirms the circuit is intact. An open circuit (cut wire) causes the resistance to read infinity — triggering a trouble condition. This is the supervised circuit concept.')">Check Answer</button>
+                <div class="quiz-feedback" id="s3-q2-feedback"></div>
+              </div>
+
+              <!-- Q3 -->
+              <div class="quiz-question" id="s3-q3">
+                <div class="quiz-q-num">Question 3 of 5</div>
+                <div class="quiz-q-text">What cable type is used for analog CCTV video signal transmission?</div>
+                <div class="quiz-options">
+                  <label class="quiz-option" onclick="selectOption('s3','q3','a')"><div class="opt-radio" id="s3-q3-a-radio"></div><span class="opt-text">UTP Cat5e / Cat6</span></label>
+                  <label class="quiz-option" onclick="selectOption('s3','q3','b')"><div class="opt-radio" id="s3-q3-b-radio"></div><span class="opt-text">Fiber optic cable</span></label>
+                  <label class="quiz-option" onclick="selectOption('s3','q3','c')"><div class="opt-radio" id="s3-q3-c-radio"></div><span class="opt-text">Coaxial cable (RG59 / RG6)</span></label>
+                  <label class="quiz-option" onclick="selectOption('s3','q3','d')"><div class="opt-radio" id="s3-q3-d-radio"></div><span class="opt-text">Two-wire fire-rated cable</span></label>
+                </div>
+                <button class="quiz-check-btn" onclick="checkAnswer('s3','q3','c','Coaxial cable (RG59 for standard definition, RG6 for HD) is used for analog CCTV systems. It has a 75Ω characteristic impedance and provides the shielding needed to transmit video signals without interference. BNC connectors are crimped on both ends.')">Check Answer</button>
+                <div class="quiz-feedback" id="s3-q3-feedback"></div>
+              </div>
+
+              <!-- Q4 -->
+              <div class="quiz-question" id="s3-q4">
+                <div class="quiz-q-num">Question 4 of 5</div>
+                <div class="quiz-q-text">What does PoE stand for and what is its primary advantage in CCTV installations?</div>
+                <div class="quiz-options">
+                  <label class="quiz-option" onclick="selectOption('s3','q4','a')"><div class="opt-radio" id="s3-q4-a-radio"></div><span class="opt-text">Power of Electronics — increases camera resolution</span></label>
+                  <label class="quiz-option" onclick="selectOption('s3','q4','b')"><div class="opt-radio" id="s3-q4-b-radio"></div><span class="opt-text">Power over Ethernet — supplies both power and data over a single UTP cable</span></label>
+                  <label class="quiz-option" onclick="selectOption('s3','q4','c')"><div class="opt-radio" id="s3-q4-c-radio"></div><span class="opt-text">Protocol over Ethernet — allows multiple cameras to share one cable</span></label>
+                  <label class="quiz-option" onclick="selectOption('s3','q4','d')"><div class="opt-radio" id="s3-q4-d-radio"></div><span class="opt-text">Power over Ethernet — used only for outdoor cameras</span></label>
+                </div>
+                <button class="quiz-check-btn" onclick="checkAnswer('s3','q4','b','PoE stands for Power over Ethernet (IEEE 802.3af/at standard). Its primary advantage is that a single Cat5e/Cat6 UTP cable carries both network data AND electrical power to the IP camera. This eliminates the need for a separate power supply at each camera location, simplifying installation significantly.')">Check Answer</button>
+                <div class="quiz-feedback" id="s3-q4-feedback"></div>
+              </div>
+
+              <!-- Q5 -->
+              <div class="quiz-question" id="s3-q5">
+                <div class="quiz-q-num">Question 5 of 5</div>
+                <div class="quiz-q-text">What is the key difference between a DVR and an NVR in a CCTV system?</div>
+                <div class="quiz-options">
+                  <label class="quiz-option" onclick="selectOption('s3','q5','a')"><div class="opt-radio" id="s3-q5-a-radio"></div><span class="opt-text">DVR records in color; NVR records in black and white</span></label>
+                  <label class="quiz-option" onclick="selectOption('s3','q5','b')"><div class="opt-radio" id="s3-q5-b-radio"></div><span class="opt-text">DVR is for analog cameras; NVR is for IP network cameras</span></label>
+                  <label class="quiz-option" onclick="selectOption('s3','q5','c')"><div class="opt-radio" id="s3-q5-c-radio"></div><span class="opt-text">DVR stores footage on cloud; NVR stores on hard drive</span></label>
+                  <label class="quiz-option" onclick="selectOption('s3','q5','d')"><div class="opt-radio" id="s3-q5-d-radio"></div><span class="opt-text">DVR supports more cameras than NVR</span></label>
+                </div>
+                <button class="quiz-check-btn" onclick="checkAnswer('s3','q5','b','DVR (Digital Video Recorder) is used with ANALOG cameras connected via coaxial cable. NVR (Network Video Recorder) is used with IP cameras connected via UTP/Ethernet cable. The DVR encodes the video; the NVR receives already-encoded digital streams from the IP cameras.')">Check Answer</button>
+                <div class="quiz-feedback" id="s3-q5-feedback"></div>
+              </div>
+
+              <div class="quiz-results" id="s3-quiz-results">
+                <div class="score-big" id="s3-score-big">0/5</div>
+                <p id="s3-score-msg">Complete all questions to see your score.</p>
+                <button class="retake-btn" onclick="retakeQuiz('s3', 5)">&#8635; Retake Quiz</button>
+              </div>
+            </div><!-- end s3-quiz -->
+
+            <!-- Mark Complete -->
+            <button class="mark-complete-btn" id="complete-btn-3" onclick="markComplete(3)">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Mark Session 3 as Complete
+            </button>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <strong>DepEd TechPro: IA</strong> &nbsp;|&nbsp; EIM-2026: Electrical Installation and Maintenance &nbsp;|&nbsp; Week 1 Module<br>
+  Developed for GitHub Pages &nbsp;|&nbsp; Repository: EIM-2026-elearning-module &nbsp;|&nbsp; Grade 11 / Grade 12 &nbsp;|&nbsp; Aligned with PEC 2017
+</footer>
+
+<!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+<script>
+// ============================================================
+// STATE
+// ============================================================
+const state = {
+  sessionOpen: null,
+  sessionsVisited: new Set(),
+  sessionsCompleted: new Set(),
+  quizState: {
+    s1: { answers: {}, score: 0, total: 5, checked: {} },
+    s2: { answers: {}, score: 0, total: 5, checked: {} },
+    s3: { answers: {}, score: 0, total: 5, checked: {} }
+  }
+};
+
+// ============================================================
+// HAMBURGER / MOBILE SIDEBAR
+// ============================================================
+document.getElementById('hamburgerBtn').addEventListener('click', function() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebarOverlay').classList.toggle('show');
+});
+document.getElementById('sidebarOverlay').addEventListener('click', function() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('show');
+});
+
+// ============================================================
+// SIDEBAR NAV
+// ============================================================
+function toggleNavSection(num) {
+  const sub = document.getElementById('navSub' + num);
+  const btn = document.getElementById('navBtn' + num);
+  const isOpen = sub.classList.contains('open');
+  // Close all
+  [1,2,3].forEach(n => {
+    document.getElementById('navSub' + n).classList.remove('open');
+    document.getElementById('navBtn' + n).classList.remove('expanded', 'active');
+  });
+  if (!isOpen) {
+    sub.classList.add('open');
+    btn.classList.add('expanded', 'active');
+  }
+}
+
+function scrollToSection(id) {
+  document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+  // Mark nav overview active
+  document.querySelectorAll('.nav-overview').forEach(el => el.classList.add('active'));
+  closeMobileSidebar();
+}
+
+function closeMobileSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('show');
+}
+
+// ============================================================
+// SESSION ACCORDION
+// ============================================================
+function toggleSession(num) {
+  const acc = document.getElementById('acc' + num);
+  const body = document.getElementById('body' + num);
+  const isOpen = acc.classList.contains('open');
+
+  if (isOpen) {
+    acc.classList.remove('open');
+    body.classList.remove('open');
+  } else {
+    acc.classList.add('open');
+    body.classList.add('open');
+    markVisited(num);
+    // Scroll to session after brief delay
+    setTimeout(() => {
+      document.getElementById('session' + num).scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
+  }
+}
+
+function openSession(num, tab) {
+  // Expand session if not open
+  const acc = document.getElementById('acc' + num);
+  const body = document.getElementById('body' + num);
+  if (!acc.classList.contains('open')) {
+    acc.classList.add('open');
+    body.classList.add('open');
+    markVisited(num);
+  }
+  // Switch to tab
+  const tabMap = { 'objectives': 0, 'topics': 1, 'activity': 2, 'quiz': 3 };
+  const tabBtns = document.querySelectorAll(`#body${num} .tab-btn`);
+  if (tabBtns[tabMap[tab]]) {
+    switchTab(num, tab, tabBtns[tabMap[tab]]);
+  }
+  // Scroll
+  setTimeout(() => {
+    document.getElementById('session' + num).scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 100);
+  closeMobileSidebar();
+}
+
+// ============================================================
+// TABS
+// ============================================================
+function switchTab(sessionNum, tabName, btn) {
+  // Deactivate all tabs in this session
+  const bodyEl = document.getElementById('body' + sessionNum);
+  bodyEl.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  bodyEl.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+
+  // Activate selected
+  if (btn) btn.classList.add('active');
+  const panel = document.getElementById('s' + sessionNum + '-' + tabName);
+  if (panel) panel.classList.add('active');
+}
+
+// ============================================================
+// PROGRESS
+// ============================================================
+function markVisited(num) {
+  if (state.sessionsCompleted.has(num)) return;
+  state.sessionsVisited.add(num);
+  const step = document.getElementById('step-' + num);
+  if (step && !step.classList.contains('completed')) {
+    step.classList.add('visited');
+    step.querySelector('.step-icon').textContent = '●';
+  }
+  // Update status badge
+  const status = document.getElementById('acc' + num + '-status');
+  if (status && !state.sessionsCompleted.has(num)) {
+    status.textContent = 'In Progress';
+    status.className = 'acc-status in-progress';
+  }
+  updateNavBtn(num);
+}
+
+function markComplete(num) {
+  state.sessionsCompleted.add(num);
+  state.sessionsVisited.add(num);
+
+  const btn = document.getElementById('complete-btn-' + num);
+  btn.classList.add('done');
+  btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Session ' + num + ' Completed!';
+
+  const step = document.getElementById('step-' + num);
+  step.classList.remove('visited');
+  step.classList.add('completed');
+  step.querySelector('.step-icon').innerHTML = '&#10003;';
+
+  const status = document.getElementById('acc' + num + '-status');
+  status.textContent = 'Completed';
+  status.className = 'acc-status completed';
+
+  updateProgressBar();
+  updateNavBtn(num);
+}
+
+function updateProgressBar() {
+  const completed = state.sessionsCompleted.size;
+  const pct = Math.round((completed / 3) * 100);
+  document.getElementById('sidebarProgressFill').style.width = pct + '%';
+  document.getElementById('sidebarProgressLabel').textContent = completed + ' of 3 sessions completed';
+}
+
+function updateNavBtn(num) {
+  const btn = document.getElementById('navBtn' + num);
+  if (state.sessionsCompleted.has(num)) {
+    btn.querySelector('.session-num').textContent = '✓';
+    btn.querySelector('.session-num').style.background = 'var(--green)';
+  }
+}
+
+// ============================================================
+// QUIZ LOGIC
+// ============================================================
+function selectOption(session, question, option) {
+  const qs = state.quizState[session];
+  if (qs.checked[question]) return; // Already answered
+
+  // Clear previous selection visuals
+  ['a','b','c','d'].forEach(opt => {
+    const el = document.querySelector(`#${session}-${question} .quiz-option:nth-child(${['a','b','c','d'].indexOf(opt)+1})`);
+    if (el) {
+      el.classList.remove('selected');
+    }
+  });
+
+  // Set new selection
+  qs.answers[question] = option;
+  const opts = document.querySelectorAll(`#${session}-${question} .quiz-option`);
+  opts.forEach((opt, idx) => {
+    opt.classList.remove('selected');
+  });
+
+  // Find and highlight selected option
+  const optIndex = ['a','b','c','d'].indexOf(option);
+  if (opts[optIndex]) opts[optIndex].classList.add('selected');
+}
+
+function checkAnswer(session, question, correct, explanation) {
+  const qs = state.quizState[session];
+  if (qs.checked[question]) return; // Already checked
+
+  const selected = qs.answers[question];
+  if (!selected) {
+    alert('Please select an answer first!');
+    return;
+  }
+
+  qs.checked[question] = true;
+  const isCorrect = selected === correct;
+  if (isCorrect) qs.score++;
+
+  // Disable all options
+  const opts = document.querySelectorAll(`#${session}-${question} .quiz-option`);
+  opts.forEach((opt, idx) => {
+    opt.classList.add('disabled');
+    const optLetter = ['a','b','c','d'][idx];
+    if (optLetter === correct) opt.classList.add('correct');
+    if (optLetter === selected && !isCorrect) opt.classList.add('incorrect');
+  });
+
+  // Show feedback
+  const feedback = document.getElementById(`${session}-${question}-feedback`);
+  feedback.className = 'quiz-feedback show ' + (isCorrect ? 'correct' : 'incorrect');
+  feedback.innerHTML = (isCorrect ? '&#10003; <strong>Correct!</strong> ' : '&#10007; <strong>Incorrect.</strong> ') + explanation;
+
+  // Disable check button
+  const questionEl = document.getElementById(`${session}-${question}`);
+  questionEl.classList.add('answered');
+  const checkBtn = questionEl.querySelector('.quiz-check-btn');
+  if (checkBtn) checkBtn.disabled = true;
+
+  // Update score display
+  const answered = Object.keys(qs.checked).length;
+  document.getElementById(`${session}-score-display`).textContent = `Score: ${qs.score} / ${qs.total}`;
+
+  // Check if all questions answered
+  if (answered === qs.total) {
+    showQuizResults(session, qs.score, qs.total);
+  }
+}
+
+function showQuizResults(session, score, total) {
+  const resultsEl = document.getElementById(`${session}-quiz-results`);
+  const scoreBig = document.getElementById(`${session}-score-big`);
+  const scoreMsg = document.getElementById(`${session}-score-msg`);
+  
+  resultsEl.classList.add('show');
+  scoreBig.textContent = score + '/' + total;
+
+  let msg = '';
+  const pct = (score / total) * 100;
+  if (pct === 100) msg = '🎉 Perfect score! Excellent work on Session ' + session.slice(1) + '!';
+  else if (pct >= 80) msg = 'Great job! You have a strong understanding of this session.';
+  else if (pct >= 60) msg = 'Good effort! Review the topics where you made mistakes.';
+  else msg = 'Keep studying! Review the session content and try again.';
+  
+  scoreMsg.textContent = msg;
+
+  // Change score color based on performance
+  if (pct === 100) scoreBig.style.color = 'var(--green)';
+  else if (pct >= 60) scoreBig.style.color = 'var(--blue)';
+  else scoreBig.style.color = 'var(--red)';
+}
+
+function retakeQuiz(session, total) {
+  const qs = state.quizState[session];
+  qs.answers = {};
+  qs.score = 0;
+  qs.checked = {};
+
+  // Reset all question elements
+  for (let i = 1; i <= total; i++) {
+    const qEl = document.getElementById(`${session}-q${i}`);
+    if (!qEl) continue;
+    qEl.classList.remove('answered');
+    
+    // Reset options
+    qEl.querySelectorAll('.quiz-option').forEach(opt => {
+      opt.classList.remove('selected', 'correct', 'incorrect', 'disabled');
+    });
+
+    // Hide feedback
+    const fb = document.getElementById(`${session}-q${i}-feedback`);
+    if (fb) { fb.className = 'quiz-feedback'; fb.innerHTML = ''; }
+
+    // Re-enable check button
+    const btn = qEl.querySelector('.quiz-check-btn');
+    if (btn) btn.disabled = false;
+  }
+
+  // Reset score display
+  document.getElementById(`${session}-score-display`).textContent = `Score: 0 / ${total}`;
+
+  // Hide results
+  const resultsEl = document.getElementById(`${session}-quiz-results`);
+  if (resultsEl) resultsEl.classList.remove('show');
+}
+
+// ============================================================
+// KEYBOARD ACCESSIBILITY
+// ============================================================
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('sidebarOverlay').classList.remove('show');
+  }
+});
+
+// ============================================================
+// SMOOTH APPEARANCE ON LOAD
+// ============================================================
+window.addEventListener('load', function() {
+  document.body.style.opacity = '0';
+  document.body.style.transition = 'opacity 0.4s ease';
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      document.body.style.opacity = '1';
+    });
+  });
+});
+
+// ============================================================
+// INTERSECTION OBSERVER — auto-mark visited on scroll
+// ============================================================
+if ('IntersectionObserver' in window) {
+  const sessionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        if (id === 'session1') markVisited(1);
+        if (id === 'session2') markVisited(2);
+        if (id === 'session3') markVisited(3);
+      }
+    });
+  }, { threshold: 0.2 });
+
+  ['session1','session2','session3'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) sessionObserver.observe(el);
+  });
+}
+</script>
+
+</body>
+</html>
